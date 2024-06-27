@@ -1,4 +1,3 @@
-# Tutorial on how to build a IoT solutions for your smart greenhouse
 
 ## Introduction
 
@@ -20,16 +19,6 @@ should be able to finish your own setup in 8-16 hours.
 Out of scope for this tutorial is how to use and sign up for an AWS
 account (Amazon Web Services).
 
-*Give a short and brief overview of what your project is about. What
-needs to be included:*
-
--   *Title*
-
--   *Your name and student credentials (xx666x)*
-
--   *Short project overview*
-
--   *How much time it might take to do (approximation)*
 
 ## Objective
 
@@ -46,15 +35,6 @@ monitored. I will also explore how I can send commands to the micro
 controller to control outgoing ports for future automation of a watering
 system and so on.
 
-*Describe why you have chosen to build this specific device. What
-purpose does it serve? What do you want to do with the data, and what
-new insights do you think it will give?*
-
--   *Why you chose the project*
-
--   *What purpose does it serve*
-
--   *What insights you think it will give*
 
 ## Material
 
@@ -80,9 +60,7 @@ analog sensor devices.
 The Pico is compatible with MicroPython which allows for rapid
 development and testing of code.
 
-![En bild som visar växt, krukväxt, kabel, Elkabel Automatiskt genererad
-beskrivning](./media/image1.png){width="2.5573786089238846in"
-height="3.409838145231846in"}
+<img src="./media/image1.png" width="320" height="320">
 
 *The Raspberry Pi Pico WH in action on the breadboard*
 
@@ -92,16 +70,6 @@ To build the Smart Greenhouse IoT hardware device I have bought and used
 the following hardware components. All components were bought from
 Elektrokit.com.
 
-*Explain all material that is needed. All sensors, where you bought them
-and their specifications. Please also provide pictures of what you have
-bought and what you are using.*
-
--   *List of material*
-
--   *What the different things (sensors, wires, controllers) do - short
-    specifications*
-
--   *Where you bought them and how much they cost*
 
 | Units | Product          | Picture                                    | Description                         | Price/unit |
 |--------|------------------|--------------------------------------------|-------------------------------------|------------|
@@ -157,9 +125,8 @@ From Thonny you should now be able to select the Pico in the bottom
 right corner of the window. By entering a line of MicroPython code into
 the Shell window you can test that everything works.
 
-![En bild som visar text, skärmbild, Teckensnitt, linje Automatiskt
-genererad beskrivning](./media/image12.png){width="5.579126202974628in"
-height="1.0952843394575678in"}
+<img src="./media/image12.png" alt="En bild som visar text, skärmbild, Teckensnitt, linje Automatiskt
+genererad beskrivning" width="535" height="105">
 
 On the left side you have both local files and files on the Pico. While
 developing it is practical to test the code by using a local .py file
@@ -191,9 +158,8 @@ together. The plant in the diagram was used with soil moisture sensor.
 Using the breadboard makes setting up the lab environment easy with no
 need for soldering.
 
-![En bild som visar skärmbild, text, blomkruka, krukväxt Automatiskt
-genererad beskrivning](./media/image13.png){width="6.3in"
-height="3.4097222222222223in"}
+<img src="./media/image13.png" alt="En bild som visar skärmbild, text, blomkruka, krukväxt Automatiskt
+genererad beskrivning" width="604" height="327">
 
 Here is a breakdown on how everything was connected and resistor
 calculations.
@@ -209,9 +175,9 @@ any device there is also VBUS pin 40. Be careful however not to put too
 much load on the Pico, consider using a separate power source instead to
 avoid damaging it.
 
-![En bild som visar Elektronisk komponent, Kretskomponent, Elektrisk
+<img src="./media/image14.png" alt="En bild som visar Elektronisk komponent, Kretskomponent, Elektrisk
 ingenjörskonst, Passiv kretskomponent Automatiskt genererad
-beskrivning](./media/image14.png){width="6.3in" height="2.06875in"}
+beskrivning" width="604" height="198">
 
 ### Connecting the DHT11 sensor
 
@@ -228,10 +194,9 @@ Connect pins as following:
 -   Per instruction from the DHT11 vendor also connect a 10kΩ pull-up
     resistor\* to pin 2 from plus on breadboard.
 
-![En bild som visar elektronik, Elektrisk ingenjörskonst, Elektronisk
+<img src="./media/image15.png" alt="En bild som visar elektronik, Elektrisk ingenjörskonst, Elektronisk
 komponent, skärmbild Automatiskt genererad
-beskrivning](./media/image15.png){width="4.7730643044619425in"
-height="2.5001760717410324in"}
+beskrivning" width="458" height="240">
 
 \*The pull-up resistor helps stabilize the signal and ensures that the
 data line is properly driven high when the DHT11 is not actively pulling
@@ -252,9 +217,8 @@ Connect pins on moisture sensor as following:
 
 -   Connect pin 1 to pin 31 (GP26) on Pico
 
-![En bild som visar skärmbild, krukväxt, blomkruka, växt Automatiskt
-genererad beskrivning](./media/image16.png){width="6.3in"
-height="3.4097222222222223in"}
+<img src="./media/image16.png" alt="En bild som visar skärmbild, krukväxt, blomkruka, växt Automatiskt
+genererad beskrivning" width="604" height="327">
 
 \*As the probe passes current through the soil, it carries ions that
 will damage the surface layer over time. As such the sensor should not
@@ -278,10 +242,9 @@ Connect pins on the photoresistor as following:
 Note that the photoresistor has a built-in 10kΩ inline resistor so there
 is no need for an external one when connecting it to the Pico.
 
-![En bild som visar Elektrisk ingenjörskonst, elektronik, Elektronisk
+<img src="./media/image17.png" alt="En bild som visar Elektrisk ingenjörskonst, elektronik, Elektronisk
 komponent, krets Automatiskt genererad
-beskrivning](./media/image17.png){width="5.647120516185477in"
-height="2.9486778215223097in"}
+beskrivning" width="542" height="283">
 
 ### Connecting the led
 
@@ -304,20 +267,10 @@ Connect pins on the led as following:
 -   The shorter led leg (cathode) is connected to minus on the
     breadboard
 
-![En bild som visar skärmbild, text, Elektrisk ingenjörskonst,
+<img src="./media/image18.png" alt="En bild som visar skärmbild, text, Elektrisk ingenjörskonst,
 elektronik Automatiskt genererad
-beskrivning](./media/image18.png){width="6.3in"
-height="3.3513888888888888in"}
+beskrivning" width="604" height="321">
 
-How is all the electronics connected? Describe all the wiring, good if
-you can show a circuit diagram. Be specific on how to connect
-everything, and what to think of in terms of resistors, current and
-voltage. Is this only for a development setup or could it be used in
-production?
-
--   Circuit diagram (can be hand drawn)
-
--   \*Electrical calculations
 
 ## Platform
 
@@ -329,9 +282,8 @@ For my project I needed a MQTT broker that is provided by Amazon IoT
 Core, a database to store sensor data provided by Amazon Timestream and
 a visualization tool where I choose to use an AWS Managed Grafana.
 
-![En bild som visar text, skärmbild, diagram, design Automatiskt
-genererad beskrivning](./media/image19.png){width="5.382270341207349in"
-height="3.8082884951881013in"}
+<img src="./media/image19.png" alt="En bild som visar text, skärmbild, diagram, design Automatiskt
+genererad beskrivning" width="516" height="365">
 
 The picture describes the flow from the IoT hardware device sending
 messages to the MQTT broker. Amazon IoT Core uses rules to trigger on
@@ -409,10 +361,9 @@ first need to create an identity with credentials for it in IoT Core.
     policy. For now give full access to all IoT resources, see example
     json below\
     \
-    ![En bild som visar text, Teckensnitt, vit, skärmbild Automatiskt
+    <img src="./media/image20.png" alt="En bild som visar text, Teckensnitt, vit, skärmbild Automatiskt
     genererad
-    beskrivning](./media/image20.png){width="2.2582797462817146in"
-    height="2.1219313210848645in"}
+    beskrivning" width="216" height="203">
 
 4.  Download certificates and store them in a folder. You will have to
     transfer these to the Pico storage to be able to connect to IoT
@@ -520,17 +471,6 @@ present it in dashboards using different diagram types.
 Our AWS environment is now ready to start managing data from the Pico
 device.
 
-Describe your choice of platform. If you have tried different platforms
-it can be good to provide a comparison.
-
-Is your platform based on a local installation or a cloud? Do you plan
-to use a paid subscription or a free? Describe the different
-alternatives on going forward if you want to scale your idea.
-
--   Describe platform in terms of functionality
-
--   \*Explain and elaborate what made you choose this platform
-
 ## The code
 
 Most of the code is written for the Pico IoT hardware device. In AWS SQL
@@ -591,9 +531,8 @@ measure the moisture in plant soil. This shows that the loop is running.
 
 Here is an overview on files and folders on the Pico
 
-![En bild som visar text, skärmbild, skärm, programvara Automatiskt
-genererad beskrivning](./media/image21.png){width="3.5201017060367454in"
-height="3.04244750656168in"}
+<img src="./media/image21.png" alt="En bild som visar text, skärmbild, skärm, programvara Automatiskt
+genererad beskrivning" width="337" height="292">
 
 #### config.py
 
@@ -637,9 +576,8 @@ Here are some core functions in the code.
 ConnectWiFi() is the function responsible for connecting to the Wi-Fi
 network. It uses the network module and SSID and password.
 
-![En bild som visar text, Teckensnitt, skärmbild Automatiskt genererad
-beskrivning](./media/image22.png){width="2.5370297462817146in"
-height="1.0324179790026247in"}
+<img src="./media/image22.png" alt="En bild som visar text, Teckensnitt, skärmbild Automatiskt genererad
+beskrivning" width="243" height="99">
 
 #### ntptime.settime()
 
@@ -647,8 +585,7 @@ It is important that the Pico has correct data and time. Since it cannot
 keep this setting when it is turned off we need to get the time from the
 Internet during startup. We use the ntptime module to achieve this.
 
-![](./media/image23.png){width="3.357752624671916in"
-height="0.28143044619422575in"}
+<img src="./media/image23.png" alt="" width="322" height="27">
 
 #### Connect MQTT
 
@@ -660,18 +597,16 @@ I had some issues with the date not being correct on the device and
 certificates then not being valid yet I added some extra debugging in
 the function.
 
-![En bild som visar text, skärmbild, Teckensnitt Automatiskt genererad
-beskrivning](./media/image24.png){width="5.883829833770779in"
-height="4.743642825896763in"}
+<img src="./media/image24.png" alt="En bild som visar text, skärmbild, Teckensnitt Automatiskt genererad
+beskrivning" width="564" height="455">
 
 #### Log()
 
 The log function manages different log levels and gives log.txt a nice
 format with timestamp and message.
 
-![En bild som visar text, Teckensnitt, skärmbild Automatiskt genererad
-beskrivning](./media/image25.png){width="6.3in"
-height="1.2944444444444445in"}
+<img src="./media/image25.png" alt="En bild som visar text, Teckensnitt, skärmbild Automatiskt genererad
+beskrivning" width="604" height="124">
 
 #### PublishData()
 
@@ -692,9 +627,8 @@ exact value, I added a check that makes sure that we never get a slip to
 a negative result. For future needs I will check for a better
 photoresistor to measure light but it will do for thus proof of concept.
 
-![En bild som visar text, skärmbild, Teckensnitt Automatiskt genererad
-beskrivning](./media/image26.png){width="6.3in"
-height="5.192361111111111in"}
+<img src="./media/image26.png" alt="En bild som visar text, skärmbild, Teckensnitt Automatiskt genererad
+beskrivning" width="604" height="498">
 
 #### OnActionMessage()
 
@@ -705,19 +639,17 @@ interesting things that could be automated in a smart greenhouse.
 The function is automatically called when a message arrives to a
 subscribed topic
 
-![](./media/image27.png){width="6.3in" height="0.3729166666666667in"}
+<img src="./media/image27.png" alt="" width="604" height="35">
 
-![](./media/image28.png){width="4.570005468066491in"
-height="0.3626990376202975in"}
+<img src="./media/image28.png" alt="" width="438" height="34">
 
 I my simple example it takes two commands "turn on led1" and "turn off
 led1" which turns on and off the physical led on the breadboard. It also
 publishes the new state so it can be visualized on the Grafana
 dashboard.
 
-![En bild som visar text, skärmbild, Teckensnitt Automatiskt genererad
-beskrivning](./media/image29.png){width="3.384653324584427in"
-height="1.664882983377078in"}
+<img src="./media/image29.png" alt="En bild som visar text, skärmbild, Teckensnitt Automatiskt genererad
+beskrivning" width="324" height="159">
 
 #### Main loop
 
@@ -731,27 +663,8 @@ error message to the log and restarting the Pico after waiting 60
 seconds. This way the device can get online again with human interaction
 after e.g. network failures. It la
 
-![En bild som visar text, Teckensnitt, skärmbild, algebra Automatiskt
-genererad beskrivning](./media/image30.png){width="6.3in"
-height="2.060416666666667in"}
-
-Import core functions of your code here, and don\'t forget to explain
-what you have done! Do not put too much code here, focus on the core
-functionalities. Have you done a specific function that does a
-calculation, or are you using clever function for sending data on two
-networks? Or, are you checking if the value is reasonable etc. Explain
-what you have done, including the setup of the network, wireless,
-libraries and all that is needed to understand.
-
-*import this as that*
-
-*def my_cool_function():*
-
-*print(\'not much here\')*
-
-*s.send(package)*
-
-*\# Explain your code!*
+<img src="./media/image30.png" alt="En bild som visar text, Teckensnitt, skärmbild, algebra Automatiskt
+genererad beskrivning" width="604" height="197">
 
 ## Transmitting the data / connectivity
 
