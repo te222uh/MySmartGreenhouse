@@ -35,6 +35,50 @@ monitored. I will also explore how I can send commands to the micro
 controller to control outgoing ports for future automation of a watering
 system and so on.
 
+# Table of Contents
+- [Introduction](#introduction)
+- [Objective](#objective)
+- [Material](#material)
+- [Computer setup](#computer-setup)
+  - [Updating firmware on Pico](#updating-firmware-on-pico)
+  - [Executing a first line of code from your Pico](#executing-a-first-line-of-code-from-your-pico)
+- [Putting everything together](#putting-everything-together)
+  - [Using the Pico to power the breadboard](#using-the-pico-to-power-the-breadboard)
+  - [Connecting the DHT11 sensor](#connecting-the-dht11-sensor)
+  - [Connecting the moisture sensor](#connecting-the-moisture-sensor)
+  - [Connecting the photoresistor](#connecting-the-photoresistor)
+  - [Connecting the led](#connecting-the-led)
+- [Platform](#platform)
+  - [Overview](#overview)
+  - [Amazon IoT Core](#amazon-iot-core)
+  - [Amazon Timestream](#amazon-timestream)
+  - [Amazon Managed Grafana](#amazon-managed-grafana)
+  - [Costs using Amazon Web Services](#costs-using-amazon-web-services)
+  - [Preparing the AWS environment](#preparing-the-aws-environment)
+    - [IoT Core -- Create MQTT Client](#iot-core----create-mqtt-client)
+    - [Timestream -- Create Database and tables](#timestream----create-database-and-tables)
+    - [IoT Core -- Create rules to store IoT data in TimeStream database table](#iot-core----create-rules-to-store-iot-data-in-timestream-database-table)
+    - [Grafana](#grafana)
+- [The code](#the-code)
+  - [Files and folders](#files-and-folders)
+    - [config.py](#configpy)
+    - [log.txt](#logtxt)
+    - [main.py](#mainpy)
+    - [Folder /umqtt/](#folder-umqtt)
+    - [Folder /custom/certs/](#folder-customcerts)
+  - [Core functions of the code](#core-functions-of-the-code)
+    - [ConnectWiFi()](#connectwifi)
+    - [ntptime.settime()](#ntptimesettime)
+    - [Connect MQTT](#connect-mqtt)
+    - [Log()](#log)
+    - [PublishData()](#publishdata)
+    - [OnActionMessage()](#onactionmessage)
+    - [Main loop](#main-loop)
+- [Transmitting the data / connectivity](#transmitting-the-data--connectivity)
+- [Presenting the data](#presenting-the-data)
+- [Finalizing the design](#finalizing-the-design)
+- [Conclusions](#conclusions)
+
 
 ## Material
 
@@ -125,8 +169,7 @@ From Thonny you should now be able to select the Pico in the bottom
 right corner of the window. By entering a line of MicroPython code into
 the Shell window you can test that everything works.
 
-<img src="./media/image12.png" alt="En bild som visar text, skärmbild, Teckensnitt, linje Automatiskt
-genererad beskrivning" width="535" height="105">
+<img src="./media/image12.png">
 
 On the left side you have both local files and files on the Pico. While
 developing it is practical to test the code by using a local .py file
@@ -158,8 +201,7 @@ together. The plant in the diagram was used with soil moisture sensor.
 Using the breadboard makes setting up the lab environment easy with no
 need for soldering.
 
-<img src="./media/image13.png" alt="En bild som visar skärmbild, text, blomkruka, krukväxt Automatiskt
-genererad beskrivning" width="604" height="327">
+<img src="./media/image13.png">
 
 Here is a breakdown on how everything was connected and resistor
 calculations.
@@ -175,9 +217,7 @@ any device there is also VBUS pin 40. Be careful however not to put too
 much load on the Pico, consider using a separate power source instead to
 avoid damaging it.
 
-<img src="./media/image14.png" alt="En bild som visar Elektronisk komponent, Kretskomponent, Elektrisk
-ingenjörskonst, Passiv kretskomponent Automatiskt genererad
-beskrivning" width="604" height="198">
+<img src="./media/image14.png">
 
 ### Connecting the DHT11 sensor
 
@@ -194,9 +234,7 @@ Connect pins as following:
 -   Per instruction from the DHT11 vendor also connect a 10kΩ pull-up
     resistor\* to pin 2 from plus on breadboard.
 
-<img src="./media/image15.png" alt="En bild som visar elektronik, Elektrisk ingenjörskonst, Elektronisk
-komponent, skärmbild Automatiskt genererad
-beskrivning" width="458" height="240">
+<img src="./media/image15.png">
 
 \*The pull-up resistor helps stabilize the signal and ensures that the
 data line is properly driven high when the DHT11 is not actively pulling
@@ -217,8 +255,7 @@ Connect pins on moisture sensor as following:
 
 -   Connect pin 1 to pin 31 (GP26) on Pico
 
-<img src="./media/image16.png" alt="En bild som visar skärmbild, krukväxt, blomkruka, växt Automatiskt
-genererad beskrivning" width="604" height="327">
+<img src="./media/image16.png">
 
 \*As the probe passes current through the soil, it carries ions that
 will damage the surface layer over time. As such the sensor should not
@@ -242,9 +279,7 @@ Connect pins on the photoresistor as following:
 Note that the photoresistor has a built-in 10kΩ inline resistor so there
 is no need for an external one when connecting it to the Pico.
 
-<img src="./media/image17.png" alt="En bild som visar Elektrisk ingenjörskonst, elektronik, Elektronisk
-komponent, krets Automatiskt genererad
-beskrivning" width="542" height="283">
+<img src="./media/image17.png">
 
 ### Connecting the led
 
@@ -267,9 +302,7 @@ Connect pins on the led as following:
 -   The shorter led leg (cathode) is connected to minus on the
     breadboard
 
-<img src="./media/image18.png" alt="En bild som visar skärmbild, text, Elektrisk ingenjörskonst,
-elektronik Automatiskt genererad
-beskrivning" width="604" height="321">
+<img src="./media/image18.png">
 
 
 ## Platform
@@ -282,8 +315,7 @@ For my project I needed a MQTT broker that is provided by Amazon IoT
 Core, a database to store sensor data provided by Amazon Timestream and
 a visualization tool where I choose to use an AWS Managed Grafana.
 
-<img src="./media/image19.png" alt="En bild som visar text, skärmbild, diagram, design Automatiskt
-genererad beskrivning" width="516" height="365">
+<img src="./media/image19.png">
 
 The picture describes the flow from the IoT hardware device sending
 messages to the MQTT broker. Amazon IoT Core uses rules to trigger on
@@ -361,9 +393,7 @@ first need to create an identity with credentials for it in IoT Core.
     policy. For now give full access to all IoT resources, see example
     json below\
     \
-    <img src="./media/image20.png" alt="En bild som visar text, Teckensnitt, vit, skärmbild Automatiskt
-    genererad
-    beskrivning" width="216" height="203">
+    <img src="./media/image20.png">
 
 4.  Download certificates and store them in a folder. You will have to
     transfer these to the Pico storage to be able to connect to IoT
@@ -531,8 +561,7 @@ measure the moisture in plant soil. This shows that the loop is running.
 
 Here is an overview on files and folders on the Pico
 
-<img src="./media/image21.png" alt="En bild som visar text, skärmbild, skärm, programvara Automatiskt
-genererad beskrivning" width="337" height="292">
+<img src="./media/image21.png">
 
 #### config.py
 
@@ -576,8 +605,7 @@ Here are some core functions in the code.
 ConnectWiFi() is the function responsible for connecting to the Wi-Fi
 network. It uses the network module and SSID and password.
 
-<img src="./media/image22.png" alt="En bild som visar text, Teckensnitt, skärmbild Automatiskt genererad
-beskrivning" width="243" height="99">
+<img src="./media/image22.png">
 
 #### ntptime.settime()
 
@@ -585,7 +613,7 @@ It is important that the Pico has correct data and time. Since it cannot
 keep this setting when it is turned off we need to get the time from the
 Internet during startup. We use the ntptime module to achieve this.
 
-<img src="./media/image23.png" alt="" width="322" height="27">
+<img src="./media/image23.png">
 
 #### Connect MQTT
 
@@ -597,16 +625,14 @@ I had some issues with the date not being correct on the device and
 certificates then not being valid yet I added some extra debugging in
 the function.
 
-<img src="./media/image24.png" alt="En bild som visar text, skärmbild, Teckensnitt Automatiskt genererad
-beskrivning" width="564" height="455">
+<img src="./media/image24.png">
 
 #### Log()
 
 The log function manages different log levels and gives log.txt a nice
 format with timestamp and message.
 
-<img src="./media/image25.png" alt="En bild som visar text, Teckensnitt, skärmbild Automatiskt genererad
-beskrivning" width="604" height="124">
+<img src="./media/image25.png">
 
 #### PublishData()
 
@@ -627,8 +653,7 @@ exact value, I added a check that makes sure that we never get a slip to
 a negative result. For future needs I will check for a better
 photoresistor to measure light but it will do for thus proof of concept.
 
-<img src="./media/image26.png" alt="En bild som visar text, skärmbild, Teckensnitt Automatiskt genererad
-beskrivning" width="604" height="498">
+<img src="./media/image26.png">
 
 #### OnActionMessage()
 
@@ -639,17 +664,16 @@ interesting things that could be automated in a smart greenhouse.
 The function is automatically called when a message arrives to a
 subscribed topic
 
-<img src="./media/image27.png" alt="" width="604" height="35">
+<img src="./media/image27.png">
 
-<img src="./media/image28.png" alt="" width="438" height="34">
+<img src="./media/image28.png">
 
 I my simple example it takes two commands "turn on led1" and "turn off
 led1" which turns on and off the physical led on the breadboard. It also
 publishes the new state so it can be visualized on the Grafana
 dashboard.
 
-<img src="./media/image29.png" alt="En bild som visar text, skärmbild, Teckensnitt Automatiskt genererad
-beskrivning" width="324" height="159">
+<img src="./media/image29.png">
 
 #### Main loop
 
@@ -663,8 +687,7 @@ error message to the log and restarting the Pico after waiting 60
 seconds. This way the device can get online again with human interaction
 after e.g. network failures. It la
 
-<img src="./media/image30.png" alt="En bild som visar text, Teckensnitt, skärmbild, algebra Automatiskt
-genererad beskrivning" width="604" height="197">
+<img src="./media/image30.png">
 
 ## Transmitting the data / connectivity
 
