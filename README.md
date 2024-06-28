@@ -1,98 +1,66 @@
+# My smart greenhouse project
 
 ## Introduction
 
 Tomas Eriksson - te222uh
 
-I have named my project *My Smart Greenhouse*. The aim with the project
-is to create proof of concept for a Smart Greenhouse including a protype
-of an IoT hardware device and a cloud-based service to monitor and
-manage a smart greenhouse remotely.
+I have named my project *My Smart Greenhouse*. The goal with the project
+is to create proof of concept for a Smart Greenhouse including a
+prototype of an IoT hardware device and a cloud-based service to monitor
+and manage a smart greenhouse remotely.
 
-The focus at this stage of the project is on monitoring the climate in
-the greenhouse and soil moisture but I have also included a first
-implementation sending commands to the remote device. As an example,
-would this be useful to control a watering system remotely.
+The focus in the proof of concept is to continuously monitor the climate
+surrounding a plant on my desk and its soil moisture. I have also
+included a first implementation of a solution to send commands to the
+IoT device. As an example, this would be useful to control a watering
+system remotely or controlling the light. The hardware IoT device is
+built using a breadboard.
+
+<img src="./media/image1.png" alt="En bild som visar växt, krukväxt, Elkabel, kabel Automatiskt genererad
+beskrivning" width="417" height="434">
+
+*My lab breadboard with a Raspberry Pi Pico WH*
+
+*with connected sensors.*
 
 I estimate that by following my instructions and using my code you
-should be able to finish your own setup in 8-16 hours.
-
-Out of scope for this tutorial is how to use and sign up for an AWS
-account (Amazon Web Services).
-
+should be able to finish your own setup in 4-8 hours. If you are not
+used to working with Amazon Web Services (AWS) you might need to add
+some more time for that.
 
 ## Objective
 
 I choose this project because of a need to monitor and manage a
 greenhouse I am planning at our vacation home up in the north of Sweden.
-Due to the long distance from Stockholm where we live, I aim to make it
-as "smart" as possible and automate it to withstand longer periods
-without our presence.
+Due to the long distance from Stockholm where we live, I have a goal to
+make it as "smart" as possible and automate it with the purpose to
+withstand longer periods without our presence.
 
-The proof of concept will give me insights on how to gather greenhouse
-climate data through IoT using a micro controller and hardware sensors
-to connect and send data to a cloud service where the data can be
-monitored. I will also explore how I can send commands to the micro
-controller to control outgoing ports for future automation of a watering
-system and so on.
+<img src="./media/image2.png" alt="En bild som visar text, skärmbild, Multimedieprogram, programvara
+Automatiskt genererad
+beskrivning" width="505" height="437">
 
-# Table of Contents
-- [Introduction](#introduction)
-- [Objective](#objective)
-- [Material](#material)
-- [Computer setup](#computer-setup)
-  - [Updating firmware on Pico](#updating-firmware-on-pico)
-  - [Executing a first line of code from your Pico](#executing-a-first-line-of-code-from-your-pico)
-- [Putting everything together](#putting-everything-together)
-  - [Using the Pico to power the breadboard](#using-the-pico-to-power-the-breadboard)
-  - [Connecting the DHT11 sensor](#connecting-the-dht11-sensor)
-  - [Connecting the moisture sensor](#connecting-the-moisture-sensor)
-  - [Connecting the photoresistor](#connecting-the-photoresistor)
-  - [Connecting the led](#connecting-the-led)
-- [Platform](#platform)
-  - [Overview](#overview)
-  - [Amazon IoT Core](#amazon-iot-core)
-  - [Amazon Timestream](#amazon-timestream)
-  - [Amazon Managed Grafana](#amazon-managed-grafana)
-  - [Costs using Amazon Web Services](#costs-using-amazon-web-services)
-  - [Preparing the AWS environment](#preparing-the-aws-environment)
-    - [IoT Core -- Create MQTT Client](#iot-core----create-mqtt-client)
-    - [Timestream -- Create Database and tables](#timestream----create-database-and-tables)
-    - [IoT Core -- Create rules to store IoT data in TimeStream database table](#iot-core----create-rules-to-store-iot-data-in-timestream-database-table)
-    - [Grafana](#grafana)
-- [The code](#the-code)
-  - [Files and folders](#files-and-folders)
-    - [config.py](#configpy)
-    - [log.txt](#logtxt)
-    - [main.py](#mainpy)
-    - [Folder /umqtt/](#folder-umqtt)
-    - [Folder /custom/certs/](#folder-customcerts)
-  - [Core functions of the code](#core-functions-of-the-code)
-    - [ConnectWiFi()](#connectwifi)
-    - [ntptime.settime()](#ntptimesettime)
-    - [Connect MQTT](#connect-mqtt)
-    - [Log()](#log)
-    - [PublishData()](#publishdata)
-    - [OnActionMessage()](#onactionmessage)
-    - [Main loop](#main-loop)
-- [Transmitting the data / connectivity](#transmitting-the-data--connectivity)
-- [Presenting the data](#presenting-the-data)
-- [Finalizing the design](#finalizing-the-design)
-- [Conclusions](#conclusions)
+*Grafana dashboard providing diagrams with climate data. Hot
+temperatures. Looks like the plant needs some water :)*
 
+The proof of concept will give me insights on how to gather and
+visualize greenhouse climate data through IoT using a micro controller
+and hardware sensors to connect and send data to a cloud service where
+the data can be monitored. I will also explore how I can send commands
+to the micro controller to control outgoing ports for future automation
+of a watering system and so on.
 
 ## Material
 
 The implementation of my smart greenhouse is based on a hardware IoT
-device with sensors and a cloud-based service including a MQTT (Message
-Queuing Telemetry Transport) broker, a database and a web-based tool to
-visualize and monitor data from the IoT device. In this chapter I will
-list and explain all the hardware material needed for the project.
+device with sensors. Here I will list and explain all the hardware
+material needed for the project.
 
 The main hardware component of the IoT device is a Raspberry Pi Pico WH.
 The Pico is a microcontroller board easy to connect to breadboards
 without the need for additional soldering. As a microcontroller it
 serves as the brain of the IoT device controlling and processing data
-from attached sensors.
+from its attached sensors.
 
 The WH means that it has a built-in Wi-Fi module, which enhances its
 suitability for IoT projects by providing wireless communication
@@ -102,109 +70,295 @@ can be used for analog to digital conversion which is handy when using
 analog sensor devices.
 
 The Pico is compatible with MicroPython which allows for rapid
-development and testing of code.
+development and code testing.
 
-<img src="./media/image1.png" width="320" height="320">
+<img src="./media/image3.jpeg" alt="Raspberry Pi Pico WH @ electrokit (1 av
+2)" width="315" height="315">
 
-*The Raspberry Pi Pico WH in action on the breadboard*
+*The Raspberry Pi Pico WH*
 
-*with connected sensors.*
+*.*
 
 To build the Smart Greenhouse IoT hardware device I have bought and used
 the following hardware components. All components were bought from
 Elektrokit.com.
 
-
-| Units | Product          | Picture                                    | Description                         | Price/unit |
-|--------|------------------|--------------------------------------------|-------------------------------------|------------|
-| 1      | Raspberry Pi Pico WH (art no: 41019114) | <img src="./media/image2.jpeg" width="160"> | Microcontroller with support for MicroPython. | 87.20 SEK |
-| 1      | DHT11 sensor (art no: 41016231)       | <img src="./media/image3.jpeg" width="160"> | Sensor for measuring air temperature and humidity. | 31.20 SEK |
-| 1      | Photoresistor with built-in resistor (art no: 41015727) | <img src="./media/image4.png" width="160"> | Sensor for measuring light. | 31.20 SEK |
-| 1      | Soil Moisture sensor (art no: 41015738) | <img src="./media/image5.jpeg" width="160"> | Sensor for measuring soil moisture. | 23.20 SEK |
-| 1      | Breadboard (art no: 10160840)         | <img src="./media/image6.jpeg" width="160"> | Lab board to connect devices to the microcontroller. | 55.20 SEK |
-| 1      | Led 2V/25mA (art no: 40307020)         | <img src="./media/image7.jpeg" width="160"> | Red LED used to show status during start-up and test remote command execution. | 4 SEK |
-| 1      | USB cable (art no: 41003290)           | <img src="./media/image8.png" width="160"> | Connects Raspberry Pi Pico WH to computer or power adapter. | 31.20 SEK |
-| 1      | Resistor 330Ω (art no: 40810233)       | <img src="./media/image9.png" width="160"> | Resistor used to lower voltage for LED to less than 2V. | 0.8 SEK |
-| 1      | Resistor 1kΩ (art no: 40810310)        | <img src="./media/image10.png" width="160"> | Pull-up resistor for DHT11 sensor. | 0.8 SEK |
-| 1      | Connection wires for breadboard male-male (art no: 41012684) | <img src="./media/image11.jpeg" width="160"> | Wires to connect devices on breadboard. | 39.20 SEK |
++-----+------------------+---------+-------------------------+--------+
+| Un  | Product          | Picture | Description             | Price/ |
+| its |                  |         |                         | unit   |
++=====+==================+=========+=========================+========+
+| 1   | Raspberry Pi     | <img src="    |                         |        |
+|     |                  | ./media |                         |        |
+|     |                  | /image4 |                         |        |
+|     |                  | .jpeg){ |                         |        |
+|     |                  | width=" |                         |        |
+|     |                  | 0.82758 |                         |        |
+|     |                  | 6395450 |                         |        |
+|     |                  | 5687in" |                         |        |
+|     |                  | he      |                         |        |
+|     |                  | ight="0 |                         |        |
+|     |                  | .827586 |                         |        |
+|     |                  | 3954505 |                         |        |
+|     |                  | 687in"} |                         |        |
++-----+------------------+---------+-------------------------+--------+
+| 1   | DHT11 sensor     | ![Tem   | Sensor for measuring    | 31.20  |
+|     |                  | p/fukts | air temperature and     | SEK    |
+|     | (art no:         | ensor - | humidity.               |        |
+|     | 41016231)        | DHT11 @ |                         |        |
+|     |                  | ele     |                         |        |
+|     |                  | ctrokit |                         |        |
+|     |                  | (1 av   |                         |        |
+|     |                  | 2)]     |                         |        |
+|     |                  | (./medi |                         |        |
+|     |                  | a/image |                         |        |
+|     |                  | 5.jpeg) |                         |        |
+|     |                  | {width= |                         |        |
+|     |                  | "0.5172 |                         |        |
+|     |                  | 4081364 |                         |        |
+|     |                  | 8294in" |                         |        |
+|     |                  | h       |                         |        |
+|     |                  | eight=" |                         |        |
+|     |                  | 0.51724 |                         |        |
+|     |                  | 0813648 |                         |        |
+|     |                  | 294in"} |                         |        |
++-----+------------------+---------+-------------------------+--------+
+| 1   | Photoresistor    | ![]     | Sensor for measuring    | 31.20  |
+|     | with built in    | (./medi | light.                  | SEK    |
+|     | resistor         | a/image |                         |        |
+|     |                  | 6.png){ |                         |        |
+|     | (art no:         | width=" |                         |        |
+|     | 41015727)        | 0.79731 |                         |        |
+|     |                  | 2992125 |                         |        |
+|     |                  | 9843in" |                         |        |
+|     |                  | he      |                         |        |
+|     |                  | ight="0 |                         |        |
+|     |                  | .597983 |                         |        |
+|     |                  | 3770778 |                         |        |
+|     |                  | 653in"} |                         |        |
++-----+------------------+---------+-------------------------+--------+
+| 1   | Soil Moisture    | !       | Sensor for measure soil | 23.20  |
+|     | sensor           | [Jordfu | moisture.               | SEK    |
+|     |                  | ktighet |                         |        |
+|     | (art no:         | ssensor |                         |        |
+|     | 41015738)        | @       |                         |        |
+|     |                  | ele     |                         |        |
+|     |                  | ctrokit |                         |        |
+|     |                  | (1 av   |                         |        |
+|     |                  | 1)](    |                         |        |
+|     |                  | ./media |                         |        |
+|     |                  | /image7 |                         |        |
+|     |                  | .jpeg){ |                         |        |
+|     |                  | width=" |                         |        |
+|     |                  | 0.62013 |                         |        |
+|     |                  | 8888888 |                         |        |
+|     |                  | 8889in" |                         |        |
+|     |                  | he      |                         |        |
+|     |                  | ight="0 |                         |        |
+|     |                  | .620138 |                         |        |
+|     |                  | 8888888 |                         |        |
+|     |                  | 889in"} |                         |        |
++-----+------------------+---------+-------------------------+--------+
+| 1   | Breadboard\      | !       | Lab board to connect    | 55.20  |
+|     | (art no:         | [Koppli | devices to              | SEK    |
+|     | 10160840)        | ngsdäck | microcontroller.        |        |
+|     |                  | 840     |                         |        |
+|     |                  | anslu   |                         |        |
+|     |                  | tningar |                         |        |
+|     |                  | @       |                         |        |
+|     |                  | ele     |                         |        |
+|     |                  | ctrokit |                         |        |
+|     |                  | (1 av   |                         |        |
+|     |                  | 2)](    |                         |        |
+|     |                  | ./media |                         |        |
+|     |                  | /image8 |                         |        |
+|     |                  | .jpeg){ |                         |        |
+|     |                  | width=" |                         |        |
+|     |                  | 0.76666 |                         |        |
+|     |                  | 6666666 |                         |        |
+|     |                  | 6667in" |                         |        |
+|     |                  | he      |                         |        |
+|     |                  | ight="0 |                         |        |
+|     |                  | .766666 |                         |        |
+|     |                  | 6666666 |                         |        |
+|     |                  | 667in"} |                         |        |
++-----+------------------+---------+-------------------------+--------+
+| 1   | Led 2V/25mA      | ![LED   | Red led used to show    | 4 SEK  |
+|     |                  | 5mm röd | status during start-up  |        |
+|     | (art no:         | diffus  | and test remote command |        |
+|     | 40307020)        | 1500mcd | execution.              |        |
+|     |                  | @       |                         |        |
+|     |                  | ele     |                         |        |
+|     |                  | ctrokit |                         |        |
+|     |                  | (1 av   |                         |        |
+|     |                  | 1)]     |                         |        |
+|     |                  | (./medi |                         |        |
+|     |                  | a/image |                         |        |
+|     |                  | 9.jpeg) |                         |        |
+|     |                  | {width= |                         |        |
+|     |                  | "0.4218 |                         |        |
+|     |                  | 3945756 |                         |        |
+|     |                  | 7804in" |                         |        |
+|     |                  | h       |                         |        |
+|     |                  | eight=" |                         |        |
+|     |                  | 0.42183 |                         |        |
+|     |                  | 9457567 |                         |        |
+|     |                  | 804in"} |                         |        |
++-----+------------------+---------+-------------------------+--------+
+| 1   | USB cable        | ![US    | Connects Raspberry Pi   | 31.20  |
+|     |                  | B-kabel | Pico WH to computer or  | SEK    |
+|     | (art no:         | A       | power adapter.          |        |
+|     | 41003290)        | -hane - |                         |        |
+|     |                  | micro B |                         |        |
+|     |                  | hane    |                         |        |
+|     |                  | 1.8m @  |                         |        |
+|     |                  | ele     |                         |        |
+|     |                  | ctrokit |                         |        |
+|     |                  | (1 av   |                         |        |
+|     |                  | 1)](    |                         |        |
+|     |                  | ./media |                         |        |
+|     |                  | /image1 |                         |        |
+|     |                  | 0.png){ |                         |        |
+|     |                  | width=" |                         |        |
+|     |                  | 0.56034 |                         |        |
+|     |                  | 5581802 |                         |        |
+|     |                  | 2747in" |                         |        |
+|     |                  | he      |                         |        |
+|     |                  | ight="0 |                         |        |
+|     |                  | .560345 |                         |        |
+|     |                  | 5818022 |                         |        |
+|     |                  | 747in"} |                         |        |
++-----+------------------+---------+-------------------------+--------+
+| 1   | Resistor 330Ω    | ![M     | Resistor used to lower  | 0.8    |
+|     |                  | otstånd | voltage for Led to less | SEK    |
+|     | (art no:         | kolfilm | than 2V.                |        |
+|     | 40810233)        | 0.25W   |                         |        |
+|     |                  | 330ohm  |                         |        |
+|     |                  | (330R)  |                         |        |
+|     |                  | @       |                         |        |
+|     |                  | ele     |                         |        |
+|     |                  | ctrokit |                         |        |
+|     |                  | (1 av   |                         |        |
+|     |                  | 1)](    |                         |        |
+|     |                  | ./media |                         |        |
+|     |                  | /image1 |                         |        |
+|     |                  | 1.png){ |                         |        |
+|     |                  | width=" |                         |        |
+|     |                  | 0.83555 |                         |        |
+|     |                  | 5555555 |                         |        |
+|     |                  | 5556in" |                         |        |
+|     |                  | he      |                         |        |
+|     |                  | ight="0 |                         |        |
+|     |                  | .275861 |                         |        |
+|     |                  | 7672790 |                         |        |
+|     |                  | 901in"} |                         |        |
++-----+------------------+---------+-------------------------+--------+
+| 1   | Resistor 1k Ω    | ![M     | Pull up resistor for    | 0.8    |
+|     |                  | otstånd | DHT 11 sensor.          | SEK    |
+|     | (art no:         | kolfilm |                         |        |
+|     | 40810310)        | 0.25W   |                         |        |
+|     |                  | 1kohm   |                         |        |
+|     |                  | (1k) @  |                         |        |
+|     |                  | ele     |                         |        |
+|     |                  | ctrokit |                         |        |
+|     |                  | (1 av   |                         |        |
+|     |                  | 1)](    |                         |        |
+|     |                  | ./media |                         |        |
+|     |                  | /image1 |                         |        |
+|     |                  | 2.png){ |                         |        |
+|     |                  | width=" |                         |        |
+|     |                  | 0.87931 |                         |        |
+|     |                  | 1023622 |                         |        |
+|     |                  | 0473in" |                         |        |
+|     |                  | he      |                         |        |
+|     |                  | ight="0 |                         |        |
+|     |                  | .260496 |                         |        |
+|     |                  | 5004374 |                         |        |
+|     |                  | 453in"} |                         |        |
++-----+------------------+---------+-------------------------+--------+
+| 1   | Connection wires | ![La    | Wires to connect        | 39.20  |
+|     | for breadboard   | bbsladd | devices on breadboard.  | SEK    |
+|     | male-male        | 40-pin  |                         |        |
+|     | (elektrokit.com  | 30cm    |                         |        |
+|     | art no:          | ha      |                         |        |
+|     | 41012684)        | ne/hane |                         |        |
+|     |                  | @       |                         |        |
+|     |                  | ele     |                         |        |
+|     |                  | ctrokit |                         |        |
+|     |                  | (1 av   |                         |        |
+|     |                  | 2)](.   |                         |        |
+|     |                  | /media/ |                         |        |
+|     |                  | image13 |                         |        |
+|     |                  | .jpeg){ |                         |        |
+|     |                  | width=" |                         |        |
+|     |                  | 0.65517 |                         |        |
+|     |                  | 2790901 |                         |        |
+|     |                  | 1373in" |                         |        |
+|     |                  | he      |                         |        |
+|     |                  | ight="0 |                         |        |
+|     |                  | .655172 |                         |        |
+|     |                  | 7909011 |                         |        |
+|     |                  | 373in"} |                         |        |
++-----+------------------+---------+-------------------------+--------+
 
 ## Computer setup
 
 I use my personal Macbook Pro with MacOS/X but the same can be achieved
-using a PC and Windows.
+using a PC and Windows. For the proof of concept, I decided to use
+Thonny as IDE. Normally I work with VS Code but after reading about
+Thonny I got curious and wanted to test it out. It has worked very well
+for the project so far but I will probably switch to VS Code if the
+project grows from a proof of concept into a full implementation.
 
-For this proof of concept, I choose to use Thonny as IDE. Normally I
-prefer VS Code but reading about Thonny I got curious and wanted to test
-it out. It has worked very well so far but I will probably switch to VS
-Code if the project grows into a full implementation.
+I followed this guide <https://hackmd.io/@lnu-iot/SyTPrHwh_> to install
+Thonny on my Mac and get it up and running with the Pico device.
 
-After installing Thonny I did the following steps to get my computer
-ready for programming the Pico using MicroPython.
+![En bild som visar text, skärmbild, programvara, dator Automatiskt
+genererad beskrivning](./media/image14.png" alt="Ra    | Microcontroller with    | 87.20  |
+|     | Pico WH          | spberry | support for             | SEK    |
+|     |                  | Pi Pico | MicroPython.            |        |
+|     | (art no:         | WH @    |                         |        |
+|     | 41019114)        | ele     |                         |        |
+|     |                  | ctrokit |                         |        |
+|     |                  | (1 av   |                         |        |
+|     |                  | 2)" width="604" height="498">
 
-### Updating firmware on Pico
+*Thonny IDE*
 
-I downloaded the latest stable Pico W firmware from micropython.org. At
-the time v1.23.0.
+In Thonny when connected to the Pico you have your local files and files
+on the Pico to the left. While developing it is practical to test the
+code by using a local .py file that will run on the Pico when pressing
+Run. You will then be able to see console prints from the code running
+on the Pico in the Shell window. Good for debugging.
 
-The firmware is updated using the following 4 steps:
+When you feel ready to test your code on its own on the Pico without the
+connection to Thonny you save the code in a file named main.py in the
+root folder of the Pico storage. Next time the Pico starts without
+connection it will automatically run main.py.
 
--   Connect micro-USB end of the USB cable to the Pico.
+After completing the installation of Thonny I followed the Applied IoT
+roadmap and updated the Pico firmware described in this guide
+<https://hackmd.io/@lnu-iot/rkFw7gao_>
 
--   While holding the button (BOOTSEL) on the Pico connect the other end
-    of the USB cable to your computer. A new Finder window will open
-    showing the Pico storage.
+I used the latest stable Pico W firmware from micropython.org. At the
+time version v1.23.0. The development environment is now up and running.
 
--   Copy the downloaded firmware file (with file extension ".uf2") and
-    paste it to the storage.
-
--   Wait until the board automatically disconnects from your computer
-    and the new drive disappear.
-
--   Disconnect the USB cable from your computer and connect it again.
-    Your Pico is now ready to go to work.
-
-### Executing a first line of code from your Pico
-
-From Thonny you should now be able to select the Pico in the bottom
-right corner of the window. By entering a line of MicroPython code into
-the Shell window you can test that everything works.
-
-<img src="./media/image12.png">
-
-On the left side you have both local files and files on the Pico. While
-developing it is practical to test the code by using a local .py file
-that will run on the Pico when pressing Run. You will then be able to
-see prints from the code running on the Pico in the Shell window. Good
-for debugging.
-
-When you feel ready to test your code on its own without the connection
-to Thonny you save the code in a file named main.py in the root of the
-Pico storage. Next time the Pico starts without connection it will
-automatically run main.py.
-
-How is the device programmed. Which IDE are you using. Describe all
-steps from flashing the firmware, installing plugins in your favorite
-editor. How flashing is done on MicroPython. The aim is that a beginner
-should be able to understand.
-
--   Chosen IDE
-
--   How the code is uploaded
-
--   Steps that you needed to do for your computer. Installation of
-    Node.js, extra drivers, etc.
+One tip if you are invited late into the course like me, and haven't
+received the hardware, is to start with writing a mqtt client in
+standard Python. In my case I already had the cloud-service up and
+running with a mqtt client simulating random sensor values. When I
+received the hardware, it wasn't too much work to port it into
+MicroPython and it saved me from the stress waiting.
 
 ## Putting everything together
 
-The following circuit diagram describes how the hardware was put
-together. The plant in the diagram was used with soil moisture sensor.
+The following circuit diagram describes how all the hardware was put
+together. The plant in the diagram was used with a soil moisture probe.
 Using the breadboard makes setting up the lab environment easy with no
-need for soldering.
+need for soldering. Here follows a breakdown on how everything was
+connected and resistor calculations.
 
-<img src="./media/image13.png">
-
-Here is a breakdown on how everything was connected and resistor
-calculations.
+<img src="./media/image15.png" alt="En bild som visar skärmbild, text, blomkruka, krukväxt Automatiskt
+genererad beskrivning" width="604" height="327">
 
 ### Using the Pico to power the breadboard
 
@@ -217,7 +371,9 @@ any device there is also VBUS pin 40. Be careful however not to put too
 much load on the Pico, consider using a separate power source instead to
 avoid damaging it.
 
-<img src="./media/image14.png">
+<img src="./media/image16.png" alt="En bild som visar Elektronisk komponent, Kretskomponent, Elektrisk
+ingenjörskonst, Passiv kretskomponent Automatiskt genererad
+beskrivning" width="604" height="198">
 
 ### Connecting the DHT11 sensor
 
@@ -234,7 +390,9 @@ Connect pins as following:
 -   Per instruction from the DHT11 vendor also connect a 10kΩ pull-up
     resistor\* to pin 2 from plus on breadboard.
 
-<img src="./media/image15.png">
+<img src="./media/image17.png" alt="En bild som visar elektronik, Elektrisk ingenjörskonst, Elektronisk
+komponent, skärmbild Automatiskt genererad
+beskrivning" width="458" height="240">
 
 \*The pull-up resistor helps stabilize the signal and ensures that the
 data line is properly driven high when the DHT11 is not actively pulling
@@ -242,10 +400,10 @@ it low.
 
 ### Connecting the moisture sensor
 
-The moisture sensor has 4 pins, from left 1-4.
-
 Connect probe to moisture sensor using two wires and put probe into the
 soil.
+
+The moisture sensor has 4 pins, from left 1-4.
 
 Connect pins on moisture sensor as following:
 
@@ -255,7 +413,8 @@ Connect pins on moisture sensor as following:
 
 -   Connect pin 1 to pin 31 (GP26) on Pico
 
-<img src="./media/image16.png">
+<img src="./media/image18.png" alt="En bild som visar skärmbild, krukväxt, blomkruka, växt Automatiskt
+genererad beskrivning" width="604" height="327">
 
 \*As the probe passes current through the soil, it carries ions that
 will damage the surface layer over time. As such the sensor should not
@@ -279,7 +438,9 @@ Connect pins on the photoresistor as following:
 Note that the photoresistor has a built-in 10kΩ inline resistor so there
 is no need for an external one when connecting it to the Pico.
 
-<img src="./media/image17.png">
+<img src="./media/image19.png" alt="En bild som visar Elektrisk ingenjörskonst, elektronik, Elektronisk
+komponent, krets Automatiskt genererad
+beskrivning" width="542" height="283">
 
 ### Connecting the led
 
@@ -302,30 +463,41 @@ Connect pins on the led as following:
 -   The shorter led leg (cathode) is connected to minus on the
     breadboard
 
-<img src="./media/image18.png">
-
+<img src="./media/image20.png" alt="En bild som visar skärmbild, text, Elektrisk ingenjörskonst,
+elektronik Automatiskt genererad
+beskrivning" width="604" height="321">
 
 ## Platform
 
 ### Overview
 
-For my project I choose to use Amazon Web Services (AWS) as IoT
-platform. AWS offers of a comprehensive suite of managed cloud services.
-For my project I needed a MQTT broker that is provided by Amazon IoT
-Core, a database to store sensor data provided by Amazon Timestream and
-a visualization tool where I choose to use an AWS Managed Grafana.
+For my project I choose to use Amazon Web Services (AWS) as a
+cloud-based IoT platform. I have long experience from working with AWS
+in my work but not with its IoT specific services and felt that it would
+be a great time learn more about them as well.
 
-<img src="./media/image19.png">
+For the project I mainly used the following AWS services
 
-The picture describes the flow from the IoT hardware device sending
-messages to the MQTT broker. Amazon IoT Core uses rules to trigger on
-relevant messages and store them in tables in the Timestream database.
+-   Amazon IoT Core as MQTT broker to which my IoT hardware connects
+
+-   Amazon Timestream as database to store sensor data
+
+-   Amazon managed Grafana for visualizations
+
+The picture describes the flow in the system from the IoT hardware
+device sending messages to the MQTT broker. Amazon IoT Core using rules
+to trigger on relevant messages and store them in tables in the
+Timestream database.
+
+<img src="./media/image21.png" alt="En bild som visar text, skärmbild, diagram, design Automatiskt
+genererad beskrivning" width="516" height="365">
+
 From the other end the dashboard in Grafana can use SQL queries to fetch
 the data from Timestream and present it in different diagrams to the
 end-user.
 
-Here follows a summary of the different AWS services used in this
-project.
+Here follows a summary of the different AWS services and how they are
+used in this project.
 
 #### Amazon IoT Core
 
@@ -334,7 +506,7 @@ and interact using the MQTT protocol, a lightweight messaging protocol
 ideal for IoT applications due to its low bandwidth usage and efficient
 message delivery. It ensures secure and reliable communication between
 devices and the cloud, enabling real-time data processing and
-management. For more details
+management.
 
 #### Amazon Timestream
 
@@ -366,211 +538,160 @@ pages.
 One advantage using AWS managed services in a proof of concept is that
 AWS offers free usage of their services up to a specified limit called
 AWS free tier. Normally you can make proof of concepts using only free
-tier services.
+tier services. Free tier could even be enough for smaller projects in
+production.
+
+If needed there is no problem to scale up in AWS to handle millions of
+IoT devices but of course at a cost that needs to be motivated by a
+business plan.
 
 As with all managed cloud services it is of course important to pay
 attention to accruing costs to avoid unpleasant surprises.
 
-### Preparing the AWS environment
+### Steps to prepare AWS for the project
 
-If you want to prepare the same setup in AWS as I have you can follow
-these steps.
+This chapter gives an overview of what had to be prepared in AWS for the
+project. For even more details I have added a how-to here.
 
-#### IoT Core -- Create MQTT Client
+#### Timestream
 
-To enable our Pico device to connect to IoT Core as a MQTT Client we
-first need to create an identity with credentials for it in IoT Core.
+In Timestream I have created a database and two tables to store the data
+from the IoT device. One table is used for sensor data and the other one
+for states from the device. To illustrate this my IoT device sends state
+if the led is turned on or off.
 
-1.  In the AWS web console go to service AWS IoT Core and navigate to
-    Manage/ Things and there select to create a new single Thing. Things
-    are what AWS call IoT devices. Select Thing type sensor and device
-    shadow to no shadow.
+<img src="./media/image22.png" alt="En bild som visar text, skärmbild, programvara, dator Automatiskt
+genererad beskrivning" width="604" height="635">
 
-2.  In the configure device certificate step select option auto-generate
-    a new certificate
+*The database IotDB*
 
-3.  In the attach policies to certificate step select to create a new
-    policy. For now give full access to all IoT resources, see example
-    json below\
-    \
-    <img src="./media/image20.png">
+<img src="./media/image23.png" alt="En bild som visar text, dator, skärmbild, programvara Automatiskt
+genererad beskrivning" width="604" height="635">
 
-4.  Download certificates and store them in a folder. You will have to
-    transfer these to the Pico storage to be able to connect to IoT
-    core.
+*The two tables SensorData and DeviceState*
 
-#### Timestream -- Create Database and tables
+By using the query editor we can see how the data from the IoT device is
+stored in the tables. The column device is fixed column always set to
+Pico1 for my IoT device. The data from the MQTT message is stored in the
+columns measure_name and measure_value. This makes it easy and flexible
+to add more sensors to the IoT device without any changes to the data
+model. Every value also get a timestamp when they are stored which makes
+it easy to create time series in Grafana.
 
-First we need to create a Timestream database.
+<img src="./media/image24.png" alt="En bild som visar text, skärmbild, programvara, dator Automatiskt
+genererad beskrivning" width="604" height="675">
 
-1.  In the AWS web console go to service TimeStream and navigate to
-    databases and select create database. Select standard database and
-    name it IotDB if you want it to work with other examples used in
-    this tutorial.
+*Using the query editor in Timestream to view table contents.*
 
-2.  Save the database
+#### IoT Core
 
-Next, we create two tables. The first table named SensorData is used to
-store sensor data. The second is used to store states from the device
-e.g. if the led is on and so on.
+In IoT Core we need to create a Thing for our IoT device. Things are
+what AWS calls IoT devices. When creating a new thing you will get the
+client certificates for the MQTT connection that are required to
+authenticate the device.
 
-1.  Select Tables and Create Table.
+<img src="./media/image25.png" alt="En bild som visar text, skärmbild, dator, programvara Automatiskt
+genererad beskrivning" width="604" height="566">
 
-2.  Choose IotDB as database and name table SensorData
+*The IoT device represented as a Thing in IoT Core*
 
-3.  In schema settings select custom partitioning and choose partition
-    key type Dimension and set Partition key name to Custom
+Message routing is used to route IoT device data to other AWS services,
+in my case the Timestream database.
 
-4.  Uncheck Enforce partition key in record
+I have created two rules. One for sensor data and one for states. A rule
+tells AWS IoT what to do when it receives messages from devices. It
+extracts data from messages and invoke actions, in this case to store
+the data in a Timestream table.
 
-5.  In Data retention make settings that suits your needs e.g. memory
-    store retention 1 week and 1-day magnetic store retention.
+For the sensor data rule, I use the SQL statement:
 
-6.  I skipped magnetic storage by unchecking Enable magnetic storage
-    writes.
+*SELECT temperature, humidity, moisture, light FROM
+\'device/pico1/data\'*
 
-7.  Select Create Table
+And for the states rule:
 
-Repeat Create table for a table named DeviceState.
+*SELECT led1 FROM \'device/pico1/state\'*
 
-#### IoT Core -- Create rules to store IoT data in TimeStream database table
+In the sensor data rule, it looks for messages with topic
+device/pico1/data and selects temperature, humidity, moisture, light to
+be included.
 
-Rules are used to read and filter incoming messages from the device. We
-need two rules that will filter messages based on topic and depending on
-topic store data in our two tables. The first rule will fetch
-temperature, humidity, moisture and light from messages with topic
-device/pico1/data which is the topic that the Pico will use when sending
-sensor data to IoT Core.
+<img src="./media/image26.png" alt="En bild som visar text, skärmbild, dator, programvara Automatiskt
+genererad beskrivning" width="604" height="566">
 
-The second rule will fetch led1 status from topic device/pico1/state
-which is the topic that the Pico will use when it sends messages about
-led status changes.
+*IoT rules*
 
-Create the first rule as follows.
+<img src="./media/image27.png" alt="En bild som visar text, skärmbild, programvara, dator Automatiskt
+genererad beskrivning" width="573" height="602">
 
-1.  In the AWS web console go to service AWS IoT Core and navigate to
-    Message Routing / Rules. Select Create rule.
-
-2.  Name the rule Pico1
-
-3.  Add SQL statement to query IoT Core topics\
-    SELECT temperature,humidity,moisture,light FROM
-    \'device/pico1/data\'
-
-4.  In Rule actions select Timestream Table
-
-5.  Choose database IotDB
-
-6.  Choose table SensorData
-
-7.  Enter dimension name "device" and dimension value "pico1"
-
-8.  Enter timestamp value \${timestamp()} and select unit MILLISECONDS
-
-9.  In IAM role select Create new role and name it e.g. Pico1Role. AWS
-    will automatically create and attach a policy to it allowing write
-    access to the Timestream table.
-
-10. Select Create.
-
-Repeat the same steps for a second rule named Pico1_state but with the
-following adjustments.
-
-In 3 replace SQL statement with SELECT led1 FROM \'device/pico1/state\'
+*Rule to route device data to Timestream*
 
 #### Grafana
 
-To prepare Grafana to present data from our Timestream tables we need to
-add Timestream as a data source. We will later explore how we can
-present it in dashboards using different diagram types.
+In AWS Managed Grafana I have added the Timestream database as a data
+source. When creating dashboards and diagrams I can use SQL statements
+to fetch data from the Timestream database but more on this later on.
 
-1.  Sign in to Grafana as administrator
+<img src="./media/image28.png" alt="" width="604" height="498">
 
-2.  Navigate to Data sources and Select Add new data source
-
-3.  Search for Timestream and select it
-
-4.  Assign the datasource a name
-
-5.  Set default region to the region where you have your Timestream DB
-    e.g. eu-central-1
-
-6.  Set default database, table and measure to IotDB, SensorData and
-    temperature.
-
-Our AWS environment is now ready to start managing data from the Pico
-device.
+*Adding Timestream as a data source in Grafana*
 
 ## The code
 
-Most of the code is written for the Pico IoT hardware device. In AWS SQL
-queries are used to select data to be stored in the Timestream database
-and select data to be visualized on dashboard in Grafana. Here I will
-focus on the MicroPython code and go into the SQL later in the chapter
-about presenting the data.
+The big part of the code in the project is written in MicroPython to run
+on the Pico device.
 
 The main thing about running MicroPython code on the Pico device is that
 it must run in a never-ending loop. Without the loop the program will
 stop as soon as it ends, and the Pico will stop fetching data from its
 sensors.
 
-Before starting the loop, we initialize what is needed like:
+The code can be divided into the following steps:
 
-1.  Setting global variables mapping pins on Pico
+Initialization
 
-2.  Connecting to Wi-Fi
+-   Importing required modules
 
-3.  Fetching the current time from the Internet
+-   Setting global variables
 
-4.  Connecting to MQTT broker
+Perform one-time tasks
 
-Something I also figured out early during the implementation is that it
-is nice to have:
+-   Connect to WiFi
 
-1.  Exception handling including an automatic restart of the device if
-    experiencing a critical error like lost connection to Wi-Fi.
+-   Set the time and date on the Pico by fetching it from the Internet
 
-2.  A log function writing logs to the Pico storage.
+-   Connect device to the MQTT broker in AWS IoT Core
 
-3.  Flash led to visualize where in the initialization phase we are
+Perform recurring tasks (while true loop)
 
-One example when I had good use for the flashing led and the log is my
-program stopped when starting Pico not running it from Thonny. I use a
-client certificate to authenticate the IoT device with the MQTT broker
-and the certificate wasn't yet valid unless the time and date on the
-Pico was set before. When running from Thonny it appears to get time and
-date from Thonny or the computer.
+-   Check if there are any messages in AWS IoT for the device
 
-The need for exception handling and automatic restart of the device I
-experienced when I wasn't home, and it lost connection to the Wi-Fi
-resulting in the program stopping. Since I wasn't home, I couldn't
-restart it. Now it waits 60 seconds after a critical exception and then
-tries to restart which makes it come online again as soon as everything
-is working again.
+-   Measure and publish sensor data to the MQTT broker
 
-To visualize where in the initialization phase the device is I have
-implemented a program sequence flashing the led. It flashes one time
-first to show that the program has started, next it flashes two times to
-show that it has successfully connected to wi-fi and lastly it flashes
-three times to show that it has successfully connected to the MQTT
-broker and is ready to transmit data. During the loop the moisture
-sensor also flashes its built-in led every time the sensor is powered to
-measure the moisture in plant soil. This shows that the loop is running.
+Log and exception handling
 
-### Files and folders
+-   Log events to log.txt on device based on log level
 
-Here is an overview on files and folders on the Pico
+-   Catch exceptions and log stack trace. Try to recover the IoT device
+    service by automatic reset. Useful if the Wi-Fi is temporary down.
 
-<img src="./media/image21.png">
+-   Flash led to visualize where in the program the device is
+
+### Files and folder structure
+
+Here is an overview on files and folders on the Pico.
+
+<img src="./media/image29.png" alt="En bild som visar text, skärmbild, skärm, programvara Automatiskt
+genererad beskrivning" width="337" height="292">
 
 #### config.py
 
 I use a separate config.py file to store sensitive configuration
 parameters. In this case I have only stored my local Wi-Fi SSID and
 password since they will not be the same in someone else environment.
-All other variables are set directly in the code to make it more visible
-to someone else reading the code. config.py is imported in main.py and
-parameters are addressed using for example config.ssid.
+All other variables are set directly to make it more visible to someone
+else reading the code. config.py is imported in main.py and parameters
+are addressed using for example config.ssid.
 
 ##### log.txt
 
@@ -598,41 +719,44 @@ the file names are the same as listed below.
 
 ### Core functions of the code
 
-Here are some core functions in the code.
-
 #### ConnectWiFi()
 
 ConnectWiFi() is the function responsible for connecting to the Wi-Fi
-network. It uses the network module and SSID and password.
+network. It uses the network module Wi-Fi ssid and password.
 
-<img src="./media/image22.png">
+<img src="./media/image30.png" alt="En bild som visar text, Teckensnitt, skärmbild Automatiskt genererad
+beskrivning" width="243" height="99">
 
 #### ntptime.settime()
 
-It is important that the Pico has correct data and time. Since it cannot
-keep this setting when it is turned off we need to get the time from the
-Internet during startup. We use the ntptime module to achieve this.
+A small but important function to get the correct date and time on the
+Pico is the ntptime.settime() function. Date and time are used to
+timestamp log entries in log.txt and when validating certificates.
+Without correct time the Pico cannot connect to the MQTT broker due to
+error validating certificates. Since the Pico cannot keep time and date
+when it is turned off, we need to get the time from the Internet during
+startup. I use the ntptime module to achieve this.
 
-<img src="./media/image23.png">
+<img src="./media/image31.png" alt="" width="322" height="27">
 
 #### Connect MQTT
 
 We use the external module umqtt to create our MQTT client and connect
-to AWS IoT Core. The client takes the certificates that we downloaded
-from AWS as parameters. We also need to specify the IoT Core endpoint
-that can be found in AWS IoT Core settings using the web console. Since
-I had some issues with the date not being correct on the device and
-certificates then not being valid yet I added some extra debugging in
-the function.
+to AWS IoT Core. What makes the connection to AWS IoT Core a bit more
+complicated is that it requires client certificates to authenticate the
+IoT device. The client uses the certificates that I downloaded from AWS
+IoT Core.
 
-<img src="./media/image24.png">
+<img src="./media/image32.png" alt="En bild som visar text, skärmbild, Teckensnitt Automatiskt genererad
+beskrivning" width="564" height="455">
 
 #### Log()
 
 The log function manages different log levels and gives log.txt a nice
 format with timestamp and message.
 
-<img src="./media/image25.png">
+<img src="./media/image33.png" alt="En bild som visar text, Teckensnitt, skärmbild Automatiskt genererad
+beskrivning" width="604" height="124">
 
 #### PublishData()
 
@@ -650,30 +774,35 @@ I didn't experience the same luck with the photoresistor but found an
 estimated max value by testing the sensor on my own. I found that its
 maximum was somewhere around 1500 when in full light. Since it is not an
 exact value, I added a check that makes sure that we never get a slip to
-a negative result. For future needs I will check for a better
-photoresistor to measure light but it will do for thus proof of concept.
+a negative result.
 
-<img src="./media/image26.png">
+For future needs I will check for a better photoresistor to measure
+light, but it will do for thus proof of concept.
+
+<img src="./media/image34.png" alt="En bild som visar text, skärmbild, Teckensnitt Automatiskt genererad
+beskrivning" width="604" height="498">
 
 #### OnActionMessage()
 
-This little function is just an embryo to future fuctions where commands
-are sent to the Pico enabling it to turn on watering systems and other
-interesting things that could be automated in a smart greenhouse.
+This little function is just an embryo to future functions where
+commands are sent to the Pico enabling it to turn on watering systems
+and other interesting things that could be automated in a smart
+greenhouse.
 
 The function is automatically called when a message arrives to a
 subscribed topic
 
-<img src="./media/image27.png">
+<img src="./media/image35.png" alt="" width="604" height="35">
 
-<img src="./media/image28.png">
+<img src="./media/image36.png" alt="" width="438" height="34">
 
 I my simple example it takes two commands "turn on led1" and "turn off
 led1" which turns on and off the physical led on the breadboard. It also
 publishes the new state so it can be visualized on the Grafana
 dashboard.
 
-<img src="./media/image29.png">
+<img src="./media/image37.png" alt="En bild som visar text, skärmbild, Teckensnitt Automatiskt genererad
+beskrivning" width="324" height="159">
 
 #### Main loop
 
@@ -682,53 +811,135 @@ messages and the second is to call PublishData that measures and sends
 sensor data to AWS IoT Core. When it is done it sleeps for 10 seconds
 before returning to the loop.
 
-One nice feature I added is exeption handling including writing the
+One nice feature I added is exception handling including writing the
 error message to the log and restarting the Pico after waiting 60
 seconds. This way the device can get online again with human interaction
-after e.g. network failures. It la
+after e.g. network failures.
 
-<img src="./media/image30.png">
+<img src="./media/image38.png" alt="En bild som visar text, Teckensnitt, skärmbild, algebra Automatiskt
+genererad beskrivning" width="604" height="197">
+
+### Downloading the code
+
+You can download the latest code here....
 
 ## Transmitting the data / connectivity
 
-How is the data transmitted to the internet or local server? Describe
-the package format. All the different steps that are needed in getting
-the data to your end-point. Explain both the code and choice of wireless
-protocols.
+I use Wi-Fi and the Internet to transmit the sensor data over the MQTT
+protocol to AWS IoT Core.
 
--   How often is the data sent?
+With my objective to use the IoT device in a greenhouse I am planning at
+our vacation home up in the north of Sweden Wi-Fi is the best option
+right now. We have good Internet connectivity with fiber installed in
+the house. The greenhouse will be in within Wi-Fi reach and external
+power is not an issue.
 
--   Which wireless protocols did you use (WiFi, LoRa, etc ...)?
+I also bought an antenna for LoRa and signed up for a Helium account but
+didn't have the time to find a place where I could both work and be in
+reach of the Helium network at the same time. It would however be
+interesting to continue to explore LoRa and Helium after this course.
 
--   Which transport protocols were used (MQTT, webhook, etc ...)
-
--   \*Elaborate on the design choices regarding data transmission and
-    wireless protocols. That is how your choices affect the device range
-    and battery consumption.
+Currently my IoT device measures sensor data and transmits it every 10
+second.
 
 ## Presenting the data
 
-Describe the presentation part. How is the dashboard built? How long is
-the data preserved in the database?
+I have created a dashboard for my project in Grafana. I have three
+different types of diagram visualizations where I present sensor data
+from the Timestream database.
 
--   Provide visual examples on how the dashboard looks. Pictures needed.
+The first is a Gauge meter presenting the current (latest) value from
+the sensors. The second calculates the average value from the sensors
+the day before. The last is a Times series diagram showing history and
+trends.
 
--   How often is data saved in the database.
+<img src="./media/image39.png" alt="En bild som visar text, skärmbild, design Automatiskt genererad
+beskrivning" width="604" height="647">
 
--   \*Explain your choice of database.
+*The dashboard consisting of a set of diagrams per sensor and a display
+showing the current state of the Led.*
 
--   \*Automation/triggers of the data.
+### Creating visualizations (Widgets)
 
-## Finalizing the design
+Visualizations are mainly using a SQL query creating a data set. The
+current value is using a simple query fetching the latest value from the
+Timestream table.
 
-Show the final results of your project. Give your final thoughts on how
-you think the project went. What could have been done in an other way,
-or even better? Pictures are nice!
+Example
 
--   Show final results of the project
+SELECT \* FROM \$\_\_database.\$\_\_table WHERE measure_name =
+\'humidity\'
 
--   Pictures
+ORDER BY time DESC LIMIT 1
 
--   \*Video presentation
+A more advanced example calculating the average value from the day
+before using the following SQL query:
+
+SELECT
+
+DATE(time) AS date,
+
+AVG(measure_value::bigint) AS average_value
+
+FROM
+
+\$\_\_database.\$\_\_table
+
+WHERE
+
+time \< CURRENT_DATE and measure_name = \'humidity\'
+
+GROUP BY
+
+DATE(time)
+
+ORDER BY
+
+DATE(time) DESC LIMIT 1
+
+I have applied general thresholds for a houseplant to visualize if the
+plant has optimal conditions. Green is good while orange and red are not
+optimal.
+
+<img src="./media/image40.png" alt="En bild som visar text, skärmbild, Multimedieprogram, programvara
+Automatiskt genererad
+beskrivning" width="484" height="398">
+
+*Visualizations are created using a SQL query creating a data set. There
+are many types of diagrams to choose from and settings to customize
+them.*
+
+The visualization showing led state is a bit special. It uses a
+visualization called stat that checks if the last value is On or Off and
+displays a red "Off" or green "On" depending on the value.
+
+<img src="./media/image41.png" alt="En bild som visar text, skärmbild, programvara, Multimedieprogram
+Automatiskt genererad beskrivning" width="604" height="496">
+
+*Using visualization Stat in Grafana to check and display state of the
+Led connected to the Pico.*
+
+Currently IoT data is preserved for 12 months. While the IoT device is
+running new data is saved to the database every time a new message to
+IoT Core, currently every 10 seconds. This means that we can use the
+dashboard to see trends 12 months back in time.
+
+For more information on the Timestream database see the platform
+chapter.
 
 ## Conclusions
+
+Building an IoT device for my smart greenhouse using AWS IoT services
+and Grafana has been both a fun and rewarding experience. I think the
+most fun part has been building the hardware and MicroPython programming
+but also to see that it was seamless to integrate it with a powerful
+cloud platform like AWS.
+
+It has also been fun to learn about parts of AWS I haven't explored
+before. IoT Core provides a secure way to connect IoT devices using
+client certificates and two-way TLS encryption. Timestream facilitated
+efficient data storage and querying, while AWS Managed Grafana offered
+powerful visualization tools for monitoring greenhouse conditions.
+
+I hope to continue the work turning the proof of concept into a real
+implementation in my planned Greenhouse.
