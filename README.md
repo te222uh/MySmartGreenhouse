@@ -146,17 +146,10 @@ project grows from a proof of concept into a full implementation.
 I followed this guide <https://hackmd.io/@lnu-iot/SyTPrHwh_> to install
 Thonny on my Mac and get it up and running with the Pico device.
 
-![En bild som visar text, skärmbild, programvara, dator Automatiskt
-genererad beskrivning](./media/image14.png" alt="Ra    | Microcontroller with    | 87.20  |
-|     | Pico WH          | spberry | support for             | SEK    |
-|     |                  | Pi Pico | MicroPython.            |        |
-|     | (art no:         | WH @    |                         |        |
-|     | 41019114)        | ele     |                         |        |
-|     |                  | ctrokit |                         |        |
-|     |                  | (1 av   |                         |        |
-|     |                  | 2)" width="604" height="498">
-
-*Thonny IDE*
+<div align="center">
+<img src="./media/image14.png">
+<p><i>Thonny IDE</i></p>
+</div>
 
 In Thonny when connected to the Pico you have your local files and files
 on the Pico to the left. While developing it is practical to test the
@@ -191,8 +184,7 @@ Using the breadboard makes setting up the lab environment easy with no
 need for soldering. Here follows a breakdown on how everything was
 connected and resistor calculations.
 
-<img src="./media/image15.png" alt="En bild som visar skärmbild, text, blomkruka, krukväxt Automatiskt
-genererad beskrivning" width="604" height="327">
+<img src="./media/image15.png">
 
 ### Using the Pico to power the breadboard
 
@@ -205,9 +197,7 @@ any device there is also VBUS pin 40. Be careful however not to put too
 much load on the Pico, consider using a separate power source instead to
 avoid damaging it.
 
-<img src="./media/image16.png" alt="En bild som visar Elektronisk komponent, Kretskomponent, Elektrisk
-ingenjörskonst, Passiv kretskomponent Automatiskt genererad
-beskrivning" width="604" height="198">
+<img src="./media/image16.png">
 
 ### Connecting the DHT11 sensor
 
@@ -224,9 +214,7 @@ Connect pins as following:
 -   Per instruction from the DHT11 vendor also connect a 10kΩ pull-up
     resistor\* to pin 2 from plus on breadboard.
 
-<img src="./media/image17.png" alt="En bild som visar elektronik, Elektrisk ingenjörskonst, Elektronisk
-komponent, skärmbild Automatiskt genererad
-beskrivning" width="458" height="240">
+<img src="./media/image17.png">
 
 \*The pull-up resistor helps stabilize the signal and ensures that the
 data line is properly driven high when the DHT11 is not actively pulling
@@ -247,8 +235,7 @@ Connect pins on moisture sensor as following:
 
 -   Connect pin 1 to pin 31 (GP26) on Pico
 
-<img src="./media/image18.png" alt="En bild som visar skärmbild, krukväxt, blomkruka, växt Automatiskt
-genererad beskrivning" width="604" height="327">
+<img src="./media/image18.png">
 
 \*As the probe passes current through the soil, it carries ions that
 will damage the surface layer over time. As such the sensor should not
@@ -272,9 +259,7 @@ Connect pins on the photoresistor as following:
 Note that the photoresistor has a built-in 10kΩ inline resistor so there
 is no need for an external one when connecting it to the Pico.
 
-<img src="./media/image19.png" alt="En bild som visar Elektrisk ingenjörskonst, elektronik, Elektronisk
-komponent, krets Automatiskt genererad
-beskrivning" width="542" height="283">
+<img src="./media/image19.png">
 
 ### Connecting the led
 
@@ -297,9 +282,7 @@ Connect pins on the led as following:
 -   The shorter led leg (cathode) is connected to minus on the
     breadboard
 
-<img src="./media/image20.png" alt="En bild som visar skärmbild, text, Elektrisk ingenjörskonst,
-elektronik Automatiskt genererad
-beskrivning" width="604" height="321">
+<img src="./media/image20.png">
 
 ## Platform
 
@@ -323,8 +306,7 @@ device sending messages to the MQTT broker. Amazon IoT Core using rules
 to trigger on relevant messages and store them in tables in the
 Timestream database.
 
-<img src="./media/image21.png" alt="En bild som visar text, skärmbild, diagram, design Automatiskt
-genererad beskrivning" width="516" height="365">
+<img src="./media/image21.png">
 
 From the other end the dashboard in Grafana can use SQL queries to fetch
 the data from Timestream and present it in different diagrams to the
@@ -394,13 +376,11 @@ from the IoT device. One table is used for sensor data and the other one
 for states from the device. To illustrate this my IoT device sends state
 if the led is turned on or off.
 
-<img src="./media/image22.png" alt="En bild som visar text, skärmbild, programvara, dator Automatiskt
-genererad beskrivning" width="604" height="635">
+<img src="./media/image22.png">
 
 *The database IotDB*
 
-<img src="./media/image23.png" alt="En bild som visar text, dator, skärmbild, programvara Automatiskt
-genererad beskrivning" width="604" height="635">
+<img src="./media/image23.png">
 
 *The two tables SensorData and DeviceState*
 
@@ -412,8 +392,7 @@ to add more sensors to the IoT device without any changes to the data
 model. Every value also get a timestamp when they are stored which makes
 it easy to create time series in Grafana.
 
-<img src="./media/image24.png" alt="En bild som visar text, skärmbild, programvara, dator Automatiskt
-genererad beskrivning" width="604" height="675">
+<img src="./media/image24.png">
 
 *Using the query editor in Timestream to view table contents.*
 
@@ -424,8 +403,7 @@ what AWS calls IoT devices. When creating a new thing you will get the
 client certificates for the MQTT connection that are required to
 authenticate the device.
 
-<img src="./media/image25.png" alt="En bild som visar text, skärmbild, dator, programvara Automatiskt
-genererad beskrivning" width="604" height="566">
+<img src="./media/image25.png">
 
 *The IoT device represented as a Thing in IoT Core*
 
@@ -450,13 +428,11 @@ In the sensor data rule, it looks for messages with topic
 device/pico1/data and selects temperature, humidity, moisture, light to
 be included.
 
-<img src="./media/image26.png" alt="En bild som visar text, skärmbild, dator, programvara Automatiskt
-genererad beskrivning" width="604" height="566">
+<img src="./media/image26.png">
 
 *IoT rules*
 
-<img src="./media/image27.png" alt="En bild som visar text, skärmbild, programvara, dator Automatiskt
-genererad beskrivning" width="573" height="602">
+<img src="./media/image27.png">
 
 *Rule to route device data to Timestream*
 
@@ -466,7 +442,7 @@ In AWS Managed Grafana I have added the Timestream database as a data
 source. When creating dashboards and diagrams I can use SQL statements
 to fetch data from the Timestream database but more on this later on.
 
-<img src="./media/image28.png" alt="" width="604" height="498">
+<img src="./media/image28.png">
 
 *Adding Timestream as a data source in Grafana*
 
@@ -515,8 +491,7 @@ Log and exception handling
 
 Here is an overview on files and folders on the Pico.
 
-<img src="./media/image29.png" alt="En bild som visar text, skärmbild, skärm, programvara Automatiskt
-genererad beskrivning" width="337" height="292">
+<img src="./media/image29.png">
 
 #### config.py
 
@@ -558,8 +533,7 @@ the file names are the same as listed below.
 ConnectWiFi() is the function responsible for connecting to the Wi-Fi
 network. It uses the network module Wi-Fi ssid and password.
 
-<img src="./media/image30.png" alt="En bild som visar text, Teckensnitt, skärmbild Automatiskt genererad
-beskrivning" width="243" height="99">
+<img src="./media/image30.png">
 
 #### ntptime.settime()
 
@@ -571,7 +545,7 @@ error validating certificates. Since the Pico cannot keep time and date
 when it is turned off, we need to get the time from the Internet during
 startup. I use the ntptime module to achieve this.
 
-<img src="./media/image31.png" alt="" width="322" height="27">
+<img src="./media/image31.png">
 
 #### Connect MQTT
 
@@ -581,16 +555,14 @@ complicated is that it requires client certificates to authenticate the
 IoT device. The client uses the certificates that I downloaded from AWS
 IoT Core.
 
-<img src="./media/image32.png" alt="En bild som visar text, skärmbild, Teckensnitt Automatiskt genererad
-beskrivning" width="564" height="455">
+<img src="./media/image32.png">
 
 #### Log()
 
 The log function manages different log levels and gives log.txt a nice
 format with timestamp and message.
 
-<img src="./media/image33.png" alt="En bild som visar text, Teckensnitt, skärmbild Automatiskt genererad
-beskrivning" width="604" height="124">
+<img src="./media/image33.png">
 
 #### PublishData()
 
@@ -613,8 +585,7 @@ a negative result.
 For future needs I will check for a better photoresistor to measure
 light, but it will do for thus proof of concept.
 
-<img src="./media/image34.png" alt="En bild som visar text, skärmbild, Teckensnitt Automatiskt genererad
-beskrivning" width="604" height="498">
+<img src="./media/image34.png">
 
 #### OnActionMessage()
 
@@ -626,17 +597,16 @@ greenhouse.
 The function is automatically called when a message arrives to a
 subscribed topic
 
-<img src="./media/image35.png" alt="" width="604" height="35">
+<img src="./media/image35.png">
 
-<img src="./media/image36.png" alt="" width="438" height="34">
+<img src="./media/image36.png">
 
 I my simple example it takes two commands "turn on led1" and "turn off
 led1" which turns on and off the physical led on the breadboard. It also
 publishes the new state so it can be visualized on the Grafana
 dashboard.
 
-<img src="./media/image37.png" alt="En bild som visar text, skärmbild, Teckensnitt Automatiskt genererad
-beskrivning" width="324" height="159">
+<img src="./media/image37.png">
 
 #### Main loop
 
@@ -650,8 +620,7 @@ error message to the log and restarting the Pico after waiting 60
 seconds. This way the device can get online again with human interaction
 after e.g. network failures.
 
-<img src="./media/image38.png" alt="En bild som visar text, Teckensnitt, skärmbild, algebra Automatiskt
-genererad beskrivning" width="604" height="197">
+<img src="./media/image38.png">
 
 ### Downloading the code
 
@@ -687,8 +656,7 @@ the sensors. The second calculates the average value from the sensors
 the day before. The last is a Times series diagram showing history and
 trends.
 
-<img src="./media/image39.png" alt="En bild som visar text, skärmbild, design Automatiskt genererad
-beskrivning" width="604" height="647">
+<img src="./media/image39.png">
 
 *The dashboard consisting of a set of diagrams per sensor and a display
 showing the current state of the Led.*
@@ -735,9 +703,7 @@ I have applied general thresholds for a houseplant to visualize if the
 plant has optimal conditions. Green is good while orange and red are not
 optimal.
 
-<img src="./media/image40.png" alt="En bild som visar text, skärmbild, Multimedieprogram, programvara
-Automatiskt genererad
-beskrivning" width="484" height="398">
+<img src="./media/image40.png">
 
 *Visualizations are created using a SQL query creating a data set. There
 are many types of diagrams to choose from and settings to customize
@@ -747,8 +713,7 @@ The visualization showing led state is a bit special. It uses a
 visualization called stat that checks if the last value is On or Off and
 displays a red "Off" or green "On" depending on the value.
 
-<img src="./media/image41.png" alt="En bild som visar text, skärmbild, programvara, Multimedieprogram
-Automatiskt genererad beskrivning" width="604" height="496">
+<img src="./media/image41.png">
 
 *Using visualization Stat in Grafana to check and display state of the
 Led connected to the Pico.*
