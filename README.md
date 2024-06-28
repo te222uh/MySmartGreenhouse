@@ -16,9 +16,10 @@ IoT device. As an example, this would be useful to control a watering
 system remotely or controlling the light. The hardware IoT device is
 built using a breadboard.
 
+<div align="center">
 <img src="./media/image1.png">
-
-*My lab breadboard with a Raspberry Pi Pico WH with connected sensors.*
+<p><i>My lab breadboard with a Raspberry Pi Pico WH with connected sensors.</i><p>
+</div>
 
 I estimate that by following my instructions and using my code you
 should be able to finish your own setup in 4-8 hours. If you are not
@@ -33,12 +34,11 @@ Due to the long distance from Stockholm where we live, I have a goal to
 make it as "smart" as possible and automate it with the purpose to
 withstand longer periods without our presence.
 
-<img src="./media/image2.png" alt="En bild som visar text, skärmbild, Multimedieprogram, programvara
-Automatiskt genererad
-beskrivning" width="505" height="437">
-
-*Grafana dashboard providing diagrams with climate data. Hot
-temperatures. Looks like the plant needs some water :)*
+<div align="center">
+<img src="./media/image2.png">
+<p><i>Grafana dashboard providing diagrams with climate data. Hot
+temperatures. Looks like the plant needs some water :)</i><p>
+</div>
 
 The proof of concept will give me insights on how to gather and
 visualize greenhouse climate data through IoT using a micro controller
