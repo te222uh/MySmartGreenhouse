@@ -16,9 +16,12 @@ IoT device. As an example, this would be useful to control a watering
 system remotely or controlling the light. The hardware IoT device is
 built using a breadboard.
 
+
 <div align="center">
+  <br>
 <img src="./media/image1.png">
 <p><i>My lab breadboard with a Raspberry Pi Pico WH with connected sensors.</i><p>
+  <br>
 </div>
 
 I estimate that by following my instructions and using my code you
@@ -38,6 +41,7 @@ withstand longer periods without our presence.
 <img src="./media/image2.png">
 <p><i>Grafana dashboard providing diagrams with climate data. Hot
 temperatures. Looks like the plant needs some water :)</i><p>
+  <br>
 </div>
 
 The proof of concept will give me insights on how to gather and
@@ -109,12 +113,11 @@ analog sensor devices.
 The Pico is compatible with MicroPython which allows for rapid
 development and code testing.
 
-<img src="./media/image3.jpeg" alt="Raspberry Pi Pico WH @ electrokit (1 av
-2)" width="315" height="315">
-
-*The Raspberry Pi Pico WH*
-
-*.*
+<div align="center">
+<img src="./media/image3.jpeg">
+  <p><i>The Raspberry Pi Pico WH</i></p>
+  <br>
+</div>
 
 To build the Smart Greenhouse IoT hardware device I have bought and used
 the following hardware components. All components were bought from
@@ -149,6 +152,7 @@ Thonny on my Mac and get it up and running with the Pico device.
 <div align="center">
 <img src="./media/image14.png">
 <p><i>Thonny IDE</i></p>
+<br>
 </div>
 
 In Thonny when connected to the Pico you have your local files and files
