@@ -47,6 +47,46 @@ the data can be monitored. I will also explore how I can send commands
 to the micro controller to control outgoing ports for future automation
 of a watering system and so on.
 
+# Contents
+
+- [My smart greenhouse project](#my-smart-greenhouse-project)
+  - [Introduction](#introduction)
+  - [Objective](#objective)
+  - [Material](#material)
+  - [Computer setup](#computer-setup)
+  - [Putting everything together](#putting-everything-together)
+    - [Using the Pico to power the breadboard](#using-the-pico-to-power-the-breadboard)
+    - [Connecting the DHT11 sensor](#connecting-the-dht11-sensor)
+    - [Connecting the moisture sensor](#connecting-the-moisture-sensor)
+    - [Connecting the photoresistor](#connecting-the-photoresistor)
+    - [Connecting the led](#connecting-the-led)
+  - [Platform](#platform)
+    - [Overview](#overview)
+    - [Steps to prepare AWS for the project](#steps-to-prepare-aws-for-the-project)
+      - [Timestream](#timestream)
+      - [IoT Core](#iot-core)
+      - [Grafana](#grafana)
+  - [The code](#the-code)
+    - [Files and folder structure](#files-and-folder-structure)
+      - [config.py](#configpy)
+      - [log.txt](#logtxt)
+      - [main.py](#mainpy)
+      - [Folder /umqtt/](#folder-umqtt)
+      - [Folder /custom/certs/](#folder-customcerts)
+    - [Core functions of the code](#core-functions-of-the-code)
+      - [ConnectWiFi()](#connectwifi)
+      - [ntptime.settime()](#ntptimesettime)
+      - [Connect MQTT](#connect-mqtt)
+      - [Log()](#log)
+      - [PublishData()](#publishdata)
+      - [OnActionMessage()](#onactionmessage)
+      - [Main loop](#main-loop)
+  - [Downloading the code](#downloading-the-code)
+  - [Transmitting the data / connectivity](#transmitting-the-data--connectivity)
+  - [Presenting the data](#presenting-the-data)
+    - [Creating visualizations (Widgets)](#creating-visualizations-widgets)
+  - [Conclusions](#conclusions)
+
 ## Material
 
 The implementation of my smart greenhouse is based on a hardware IoT
