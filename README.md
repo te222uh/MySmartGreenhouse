@@ -16,12 +16,9 @@ IoT device. As an example, this would be useful to control a watering
 system remotely or controlling the light. The hardware IoT device is
 built using a breadboard.
 
-<img src="./media/image1.png" alt="En bild som visar växt, krukväxt, Elkabel, kabel Automatiskt genererad
-beskrivning" width="417" height="434">
+<img src="./media/image1.png">
 
-*My lab breadboard with a Raspberry Pi Pico WH*
-
-*with connected sensors.*
+*My lab breadboard with a Raspberry Pi Pico WH with connected sensors.*
 
 I estimate that by following my instructions and using my code you
 should be able to finish your own setup in 4-8 hours. If you are not
@@ -83,222 +80,19 @@ To build the Smart Greenhouse IoT hardware device I have bought and used
 the following hardware components. All components were bought from
 Elektrokit.com.
 
-+-----+------------------+---------+-------------------------+--------+
-| Un  | Product          | Picture | Description             | Price/ |
-| its |                  |         |                         | unit   |
-+=====+==================+=========+=========================+========+
-| 1   | Raspberry Pi     | <img src="    |                         |        |
-|     |                  | ./media |                         |        |
-|     |                  | /image4 |                         |        |
-|     |                  | .jpeg){ |                         |        |
-|     |                  | width=" |                         |        |
-|     |                  | 0.82758 |                         |        |
-|     |                  | 6395450 |                         |        |
-|     |                  | 5687in" |                         |        |
-|     |                  | he      |                         |        |
-|     |                  | ight="0 |                         |        |
-|     |                  | .827586 |                         |        |
-|     |                  | 3954505 |                         |        |
-|     |                  | 687in"} |                         |        |
-+-----+------------------+---------+-------------------------+--------+
-| 1   | DHT11 sensor     | ![Tem   | Sensor for measuring    | 31.20  |
-|     |                  | p/fukts | air temperature and     | SEK    |
-|     | (art no:         | ensor - | humidity.               |        |
-|     | 41016231)        | DHT11 @ |                         |        |
-|     |                  | ele     |                         |        |
-|     |                  | ctrokit |                         |        |
-|     |                  | (1 av   |                         |        |
-|     |                  | 2)]     |                         |        |
-|     |                  | (./medi |                         |        |
-|     |                  | a/image |                         |        |
-|     |                  | 5.jpeg) |                         |        |
-|     |                  | {width= |                         |        |
-|     |                  | "0.5172 |                         |        |
-|     |                  | 4081364 |                         |        |
-|     |                  | 8294in" |                         |        |
-|     |                  | h       |                         |        |
-|     |                  | eight=" |                         |        |
-|     |                  | 0.51724 |                         |        |
-|     |                  | 0813648 |                         |        |
-|     |                  | 294in"} |                         |        |
-+-----+------------------+---------+-------------------------+--------+
-| 1   | Photoresistor    | ![]     | Sensor for measuring    | 31.20  |
-|     | with built in    | (./medi | light.                  | SEK    |
-|     | resistor         | a/image |                         |        |
-|     |                  | 6.png){ |                         |        |
-|     | (art no:         | width=" |                         |        |
-|     | 41015727)        | 0.79731 |                         |        |
-|     |                  | 2992125 |                         |        |
-|     |                  | 9843in" |                         |        |
-|     |                  | he      |                         |        |
-|     |                  | ight="0 |                         |        |
-|     |                  | .597983 |                         |        |
-|     |                  | 3770778 |                         |        |
-|     |                  | 653in"} |                         |        |
-+-----+------------------+---------+-------------------------+--------+
-| 1   | Soil Moisture    | !       | Sensor for measure soil | 23.20  |
-|     | sensor           | [Jordfu | moisture.               | SEK    |
-|     |                  | ktighet |                         |        |
-|     | (art no:         | ssensor |                         |        |
-|     | 41015738)        | @       |                         |        |
-|     |                  | ele     |                         |        |
-|     |                  | ctrokit |                         |        |
-|     |                  | (1 av   |                         |        |
-|     |                  | 1)](    |                         |        |
-|     |                  | ./media |                         |        |
-|     |                  | /image7 |                         |        |
-|     |                  | .jpeg){ |                         |        |
-|     |                  | width=" |                         |        |
-|     |                  | 0.62013 |                         |        |
-|     |                  | 8888888 |                         |        |
-|     |                  | 8889in" |                         |        |
-|     |                  | he      |                         |        |
-|     |                  | ight="0 |                         |        |
-|     |                  | .620138 |                         |        |
-|     |                  | 8888888 |                         |        |
-|     |                  | 889in"} |                         |        |
-+-----+------------------+---------+-------------------------+--------+
-| 1   | Breadboard\      | !       | Lab board to connect    | 55.20  |
-|     | (art no:         | [Koppli | devices to              | SEK    |
-|     | 10160840)        | ngsdäck | microcontroller.        |        |
-|     |                  | 840     |                         |        |
-|     |                  | anslu   |                         |        |
-|     |                  | tningar |                         |        |
-|     |                  | @       |                         |        |
-|     |                  | ele     |                         |        |
-|     |                  | ctrokit |                         |        |
-|     |                  | (1 av   |                         |        |
-|     |                  | 2)](    |                         |        |
-|     |                  | ./media |                         |        |
-|     |                  | /image8 |                         |        |
-|     |                  | .jpeg){ |                         |        |
-|     |                  | width=" |                         |        |
-|     |                  | 0.76666 |                         |        |
-|     |                  | 6666666 |                         |        |
-|     |                  | 6667in" |                         |        |
-|     |                  | he      |                         |        |
-|     |                  | ight="0 |                         |        |
-|     |                  | .766666 |                         |        |
-|     |                  | 6666666 |                         |        |
-|     |                  | 667in"} |                         |        |
-+-----+------------------+---------+-------------------------+--------+
-| 1   | Led 2V/25mA      | ![LED   | Red led used to show    | 4 SEK  |
-|     |                  | 5mm röd | status during start-up  |        |
-|     | (art no:         | diffus  | and test remote command |        |
-|     | 40307020)        | 1500mcd | execution.              |        |
-|     |                  | @       |                         |        |
-|     |                  | ele     |                         |        |
-|     |                  | ctrokit |                         |        |
-|     |                  | (1 av   |                         |        |
-|     |                  | 1)]     |                         |        |
-|     |                  | (./medi |                         |        |
-|     |                  | a/image |                         |        |
-|     |                  | 9.jpeg) |                         |        |
-|     |                  | {width= |                         |        |
-|     |                  | "0.4218 |                         |        |
-|     |                  | 3945756 |                         |        |
-|     |                  | 7804in" |                         |        |
-|     |                  | h       |                         |        |
-|     |                  | eight=" |                         |        |
-|     |                  | 0.42183 |                         |        |
-|     |                  | 9457567 |                         |        |
-|     |                  | 804in"} |                         |        |
-+-----+------------------+---------+-------------------------+--------+
-| 1   | USB cable        | ![US    | Connects Raspberry Pi   | 31.20  |
-|     |                  | B-kabel | Pico WH to computer or  | SEK    |
-|     | (art no:         | A       | power adapter.          |        |
-|     | 41003290)        | -hane - |                         |        |
-|     |                  | micro B |                         |        |
-|     |                  | hane    |                         |        |
-|     |                  | 1.8m @  |                         |        |
-|     |                  | ele     |                         |        |
-|     |                  | ctrokit |                         |        |
-|     |                  | (1 av   |                         |        |
-|     |                  | 1)](    |                         |        |
-|     |                  | ./media |                         |        |
-|     |                  | /image1 |                         |        |
-|     |                  | 0.png){ |                         |        |
-|     |                  | width=" |                         |        |
-|     |                  | 0.56034 |                         |        |
-|     |                  | 5581802 |                         |        |
-|     |                  | 2747in" |                         |        |
-|     |                  | he      |                         |        |
-|     |                  | ight="0 |                         |        |
-|     |                  | .560345 |                         |        |
-|     |                  | 5818022 |                         |        |
-|     |                  | 747in"} |                         |        |
-+-----+------------------+---------+-------------------------+--------+
-| 1   | Resistor 330Ω    | ![M     | Resistor used to lower  | 0.8    |
-|     |                  | otstånd | voltage for Led to less | SEK    |
-|     | (art no:         | kolfilm | than 2V.                |        |
-|     | 40810233)        | 0.25W   |                         |        |
-|     |                  | 330ohm  |                         |        |
-|     |                  | (330R)  |                         |        |
-|     |                  | @       |                         |        |
-|     |                  | ele     |                         |        |
-|     |                  | ctrokit |                         |        |
-|     |                  | (1 av   |                         |        |
-|     |                  | 1)](    |                         |        |
-|     |                  | ./media |                         |        |
-|     |                  | /image1 |                         |        |
-|     |                  | 1.png){ |                         |        |
-|     |                  | width=" |                         |        |
-|     |                  | 0.83555 |                         |        |
-|     |                  | 5555555 |                         |        |
-|     |                  | 5556in" |                         |        |
-|     |                  | he      |                         |        |
-|     |                  | ight="0 |                         |        |
-|     |                  | .275861 |                         |        |
-|     |                  | 7672790 |                         |        |
-|     |                  | 901in"} |                         |        |
-+-----+------------------+---------+-------------------------+--------+
-| 1   | Resistor 1k Ω    | ![M     | Pull up resistor for    | 0.8    |
-|     |                  | otstånd | DHT 11 sensor.          | SEK    |
-|     | (art no:         | kolfilm |                         |        |
-|     | 40810310)        | 0.25W   |                         |        |
-|     |                  | 1kohm   |                         |        |
-|     |                  | (1k) @  |                         |        |
-|     |                  | ele     |                         |        |
-|     |                  | ctrokit |                         |        |
-|     |                  | (1 av   |                         |        |
-|     |                  | 1)](    |                         |        |
-|     |                  | ./media |                         |        |
-|     |                  | /image1 |                         |        |
-|     |                  | 2.png){ |                         |        |
-|     |                  | width=" |                         |        |
-|     |                  | 0.87931 |                         |        |
-|     |                  | 1023622 |                         |        |
-|     |                  | 0473in" |                         |        |
-|     |                  | he      |                         |        |
-|     |                  | ight="0 |                         |        |
-|     |                  | .260496 |                         |        |
-|     |                  | 5004374 |                         |        |
-|     |                  | 453in"} |                         |        |
-+-----+------------------+---------+-------------------------+--------+
-| 1   | Connection wires | ![La    | Wires to connect        | 39.20  |
-|     | for breadboard   | bbsladd | devices on breadboard.  | SEK    |
-|     | male-male        | 40-pin  |                         |        |
-|     | (elektrokit.com  | 30cm    |                         |        |
-|     | art no:          | ha      |                         |        |
-|     | 41012684)        | ne/hane |                         |        |
-|     |                  | @       |                         |        |
-|     |                  | ele     |                         |        |
-|     |                  | ctrokit |                         |        |
-|     |                  | (1 av   |                         |        |
-|     |                  | 2)](.   |                         |        |
-|     |                  | /media/ |                         |        |
-|     |                  | image13 |                         |        |
-|     |                  | .jpeg){ |                         |        |
-|     |                  | width=" |                         |        |
-|     |                  | 0.65517 |                         |        |
-|     |                  | 2790901 |                         |        |
-|     |                  | 1373in" |                         |        |
-|     |                  | he      |                         |        |
-|     |                  | ight="0 |                         |        |
-|     |                  | .655172 |                         |        |
-|     |                  | 7909011 |                         |        |
-|     |                  | 373in"} |                         |        |
-+-----+------------------+---------+-------------------------+--------+
+| Units | Product          | Picture                                    | Description                         | Price/unit |
+|-------|------------------|--------------------------------------------|-------------------------------------|------------|
+| 1     | Raspberry Pi Pico WH (art no: 41019114) | <img src="./media/image4.jpeg" width="160"> | Microcontroller with support for MicroPython. | 87.20 SEK |
+| 1     | DHT11 sensor (art no: 41016231)       | <img src="./media/image5.jpeg" width="160"> | Sensor for measuring air temperature and humidity. | 31.20 SEK |
+| 1     | Photoresistor with built-in resistor (art no: 41015727) | <img src="./media/image6.png" width="160"> | Sensor for measuring light. | 31.20 SEK |
+| 1     | Soil Moisture sensor (art no: 41015738) | <img src="./media/image7.jpeg" width="160"> | Sensor for measuring soil moisture. | 23.20 SEK |
+| 1     | Breadboard (art no: 10160840)         | <img src="./media/image8.jpeg" width="160"> | Lab board to connect devices to the microcontroller. | 55.20 SEK |
+| 1     | Led 2V/25mA (art no: 40307020)         | <img src="./media/image9.jpeg" width="160"> | Red LED used to show status during start-up and test remote command execution. | 4 SEK |
+| 1     | USB cable (art no: 41003290)           | <img src="./media/image10.png" width="160"> | Connects Raspberry Pi Pico WH to computer or power adapter. | 31.20 SEK |
+| 1     | Resistor 330Ω (art no: 40810233)       | <img src="./media/image11.png" width="160"> | Resistor used to lower voltage for LED to less than 2V. | 0.8 SEK |
+| 1     | Resistor 1kΩ (art no: 40810310)        | <img src="./media/image12.png" width="160"> | Pull-up resistor for DHT11 sensor. | 0.8 SEK |
+| 1     | Connection wires for breadboard male-male (art no: 41012684) | <img src="./media/image13.jpeg" width="160"> | Wires to connect devices on breadboard. | 39.20 SEK |
+
 
 ## Computer setup
 
