@@ -146,7 +146,7 @@ Thonny I got curious and wanted to test it out. It has worked very well
 for the project so far but I will probably switch to VS Code if the
 project grows from a proof of concept into a full implementation.
 
-I followed this guide <https://hackmd.io/@lnu-iot/SyTPrHwh_> to install
+I followed this <a href="https://hackmd.io/@lnu-iot/SyTPrHwh_" target=_new>guide</a> to install
 Thonny on my Mac and get it up and running with the Pico device.
 
 <div align="center">
