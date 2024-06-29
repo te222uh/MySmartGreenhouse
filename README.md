@@ -707,10 +707,16 @@ the sensors. The second calculates the average value from the sensors
 the day before. The last is a Times series diagram showing history and
 trends.
 
-<img src="./media/image39.png">
+<div align="center">
+  <br>
+  <img src="./media/image39.png">
+</div>
+<div align="center">
+  <p><i>The dashboard consisting of a set of diagrams per sensor and a display
+showing the current state of the LED.</i><p>
+  <br>
+</div>
 
-*The dashboard consisting of a set of diagrams per sensor and a display
-showing the current state of the Led.*
 
 ### Creating visualizations (Widgets)
 
@@ -754,20 +760,31 @@ I have applied general thresholds for a houseplant to visualize if the
 plant has optimal conditions. Green is good while orange and red are not
 optimal.
 
-<img src="./media/image40.png">
-
-*Visualizations are created using a SQL query creating a data set. There
+<div align="center">
+  <br>
+  <img src="./media/image40.png">
+</div>
+<div align="center">
+  <p><i>Visualizations are created using a SQL query creating a data set. There
 are many types of diagrams to choose from and settings to customize
-them.*
+them.</i><p>
+  <br>
+</div>
 
 The visualization showing LED state is a bit special. It uses a
 visualization called stat that checks if the last value is On or Off and
 displays a red "Off" or green "On" depending on the value.
 
-<img src="./media/image41.png">
 
-*Using visualization Stat in Grafana to check and display state of the
-LED connected to the Pico.*
+<div align="center">
+  <br>
+  <img src="./media/image41.png">
+</div>
+<div align="center">
+  <p><i>Using visualization Stat in Grafana to check and display state of the
+LED connected to the Pico.</i><p>
+  <br>
+</div>
 
 Currently IoT data is preserved for 12 months. While the IoT device is
 running new data is saved to the database every time a new message to
