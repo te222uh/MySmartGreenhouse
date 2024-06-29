@@ -640,7 +640,7 @@ light, but it will do for thus proof of concept.
 
 #### OnActionMessage()
 
-This little function is just an embryo to future functions where
+This little function is just an embryo for future functions where
 commands are sent to the Pico enabling it to turn on watering systems
 and other interesting things that could be automated in a smart
 greenhouse.
@@ -652,7 +652,7 @@ subscribed topic
 
 <img src="./media/image36.png">
 
-I my simple example it takes two commands "turn on led1" and "turn off
+In my simple example it takes two commands "turn on led1" and "turn off
 led1" which turns on and off the physical LED on the breadboard. It also
 publishes the new state so it can be visualized on the Grafana
 dashboard.
