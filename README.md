@@ -389,13 +389,24 @@ from the IoT device. One table is used for sensor data and the other one
 for states from the device. To illustrate this my IoT device sends state
 if the LED is turned on or off.
 
-<img src="./media/image22.png">
+<div align="center">
+  <br>
+  <img src="./media/image22.png">
+</div>
+<div align="center">
+  <p><i>The database IotDB</i><p>
+  <br>
+</div>
 
-*The database IotDB*
+<div align="center">
+  <br>
+  <img src="./media/image23.png">
+</div>
+<div align="center">
+  <p><i>The two tables SensorData and DeviceState</i><p>
+  <br>
+</div>
 
-<img src="./media/image23.png">
-
-*The two tables SensorData and DeviceState*
 
 By using the query editor we can see how the data from the IoT device is
 stored in the tables. The column device is fixed column always set to
@@ -405,9 +416,14 @@ to add more sensors to the IoT device without any changes to the data
 model. Every value also get a timestamp when they are stored which makes
 it easy to create time series in Grafana.
 
-<img src="./media/image24.png">
-
-*Using the query editor in Timestream to view table contents.*
+<div align="center">
+  <br>
+  <img src="./media/image24.png">
+</div>
+<div align="center">
+  <p><i>Using the query editor in Timestream to view table contents.</i><p>
+  <br>
+</div>
 
 #### IoT Core
 
@@ -416,9 +432,14 @@ what AWS calls IoT devices. When creating a new thing you will get the
 client certificates for the MQTT connection that are required to
 authenticate the device.
 
-<img src="./media/image25.png">
-
-*The IoT device represented as a Thing in IoT Core*
+<div align="center">
+  <br>
+  <img src="./media/image25.png">
+</div>
+<div align="center">
+  <p><i>The IoT device represented as a Thing in IoT Core.</i><p>
+  <br>
+</div>
 
 Message routing is used to route IoT device data to other AWS services,
 in my case the Timestream database.
@@ -441,13 +462,24 @@ In the sensor data rule, it looks for messages with topic
 device/pico1/data and selects temperature, humidity, moisture, light to
 be included.
 
-<img src="./media/image26.png">
+<div align="center">
+  <br>
+  <img src="./media/image26.png">
+</div>
+<div align="center">
+  <p><i>IoT rules</i><p>
+  <br>
+</div>
 
-*IoT rules*
 
-<img src="./media/image27.png">
-
-*Rule to route device data to Timestream*
+<div align="center">
+  <br>
+  <img src="./media/image27.png">
+</div>
+<div align="center">
+  <p><i>Rule to route device data to Timestream.</i><p>
+  <br>
+</div>
 
 #### Grafana
 
@@ -455,9 +487,15 @@ In AWS Managed Grafana I have added the Timestream database as a data
 source. When creating dashboards and diagrams I can use SQL statements
 to fetch data from the Timestream database but more on this later on.
 
-<img src="./media/image28.png">
+<div align="center">
+  <br>
+  <img src="./media/image28.png">
+</div>
+<div align="center">
+  <p><i>Adding Timestream as a data source in Grafana.</i><p>
+  <br>
+</div>
 
-*Adding Timestream as a data source in Grafana*
 
 ## The code
 
@@ -469,15 +507,15 @@ it must run in a never-ending loop. Without the loop the program will
 stop as soon as it ends, and the Pico will stop fetching data from its
 sensors.
 
-The code can be divided into the following steps:
+The code can be divided into the following parts:
 
-Initialization
+**Initialization**
 
 -   Importing required modules
 
 -   Setting global variables
 
-Perform one-time tasks
+**Perform one-time tasks**
 
 -   Connect to WiFi
 
@@ -485,13 +523,13 @@ Perform one-time tasks
 
 -   Connect device to the MQTT broker in AWS IoT Core
 
-Perform recurring tasks (while true loop)
+**Perform recurring tasks (while true loop)**
 
 -   Check if there are any messages in AWS IoT for the device
 
 -   Measure and publish sensor data to the MQTT broker
 
-Log and exception handling
+**Log and exception handling**
 
 -   Log events to log.txt on device based on log level
 
