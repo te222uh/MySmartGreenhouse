@@ -311,15 +311,14 @@ The picture describes the flow in the system from the IoT hardware
 device sending messages to the MQTT broker. Amazon IoT Core using rules
 to trigger on relevant messages and store them in tables in the
 Timestream database.
-
-<img src="./media/image21.png">
-
+<div align="center">
+  <br>
+  <img src="./media/image21.png">
+  <br>
+</div>
 From the other end the dashboard in Grafana can use SQL queries to fetch
 the data from Timestream and present it in different diagrams to the
 end-user.
-
-Here follows a summary of the different AWS services and how they are
-used in this project.
 
 #### Amazon IoT Core
 
