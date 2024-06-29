@@ -146,7 +146,8 @@ Thonny I got curious and wanted to test it out. It has worked very well
 for the project so far but I will probably switch to VS Code if the
 project grows from a proof of concept into a full implementation.
 
-I followed this <a href="https://hackmd.io/@lnu-iot/SyTPrHwh_" target=_new>guide</a> to install
+### Installing Thonny
+I followed this <a href="https://hackmd.io/@lnu-iot/SyTPrHwh_" target="_new">guide</a> to install
 Thonny on my Mac and get it up and running with the Pico device.
 
 <div align="center">
@@ -166,13 +167,14 @@ connection to Thonny you save the code in a file named main.py in the
 root folder of the Pico storage. Next time the Pico starts without
 connection it will automatically run main.py.
 
+### Update Pico firmware
 After completing the installation of Thonny I followed the Applied IoT
-roadmap and updated the Pico firmware described in this guide
-<https://hackmd.io/@lnu-iot/rkFw7gao_>
+roadmap and updated the Pico firmware described in this <a href="https://hackmd.io/@lnu-iot/rkFw7gao_" target="_new">guide</a> 
 
 I used the latest stable Pico W firmware from micropython.org. At the
 time version v1.23.0. The development environment is now up and running.
 
+### Not received your hardware?
 One tip if you are invited late into the course like me, and haven't
 received the hardware, is to start with writing a mqtt client in
 standard Python. In my case I already had the cloud-service up and
