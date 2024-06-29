@@ -800,7 +800,11 @@ Building an IoT device for my smart greenhouse using AWS IoT services
 and Grafana has been both a fun and rewarding experience. I think the
 most fun part has been building the hardware and MicroPython programming
 but also to see that it was seamless to integrate it with a powerful
-cloud platform like AWS.
+cloud platform like AWS. 
+
+I think the project went well without any bigger obstacle. I still have some 
+minor issues with my photoresistor hardware that I will hopefully can get 
+fixed by replacing it before the upcoming presentation.   
 
 <div align="center">
   <br>
@@ -810,6 +814,8 @@ cloud platform like AWS.
   <p><i>Final design in proof of concept</i><p>
   <br>
 </div>
+<br>
+\
 
 **VIDEO IS COMING!**
 
