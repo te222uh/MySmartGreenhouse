@@ -804,7 +804,7 @@ cloud platform like AWS.
 
 <br>
 <div align="center">
-  <p><b>VIDEO WITH WALK-THROUGH OF THE FINAL DESIGN IS COMING!</b></p>
+  <p><b>VIDEO OF WALK-THROUGH OF THE FINAL DESIGN IS COMING!</b></p>
 </div>
 <br>
 
