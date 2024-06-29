@@ -675,7 +675,7 @@ after e.g. network failures.
 
 ### Downloading the code
 
-You can download the latest code here....
+You can download the latest code [here](./code/)
 
 ## Transmitting the data / connectivity
 
