@@ -186,7 +186,7 @@ time version v1.23.0. The development environment is now up and running.
 One tip if you are invited late into the course like me, and haven't
 received the hardware, is to start with writing a mqtt client in
 standard Python. In my case I already had the cloud-service up and
-running with a mqtt client simulating random sensor values. When I
+running with a mqtt client simulating random sensor values before I had the hardware. When I
 received the hardware, it wasn't too much work to port it into
 MicroPython and it saved me from the stress waiting.
 
