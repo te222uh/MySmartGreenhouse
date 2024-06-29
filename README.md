@@ -796,9 +796,11 @@ chapter.
 
 ## Finalizing the design
 
+<br>
 <div align="center">
   <p><b>VIDEO WITH WALK-THROUGH OF THE FINAL DESIGN IS COMING!</b></p>
 </div>
+<br>
   
 Building an IoT device for my smart greenhouse using AWS IoT services
 and Grafana has been both a fun and rewarding experience. I think the
