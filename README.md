@@ -372,7 +372,7 @@ attention to accruing costs to avoid unpleasant surprises.
 ### Steps to prepare AWS for the project
 
 This chapter gives an overview of what had to be prepared in AWS for the
-project. For even more details I have added a how-to here.
+project. For even more details I have added a how-to [here](docs/aws-howto.md).
 
 #### Timestream
 
