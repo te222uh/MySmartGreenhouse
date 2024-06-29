@@ -29,29 +29,15 @@ should be able to finish your own setup in 4-8 hours. If you are not
 used to working with Amazon Web Services (AWS) you might need to add
 some more time for that.
 
-## Objective
+# TL;DR
 
-I choose this project because of a need to monitor and manage a
-greenhouse I am planning at our vacation home up in the north of Sweden.
-Due to the long distance from Stockholm where we live, I have a goal to
-make it as "smart" as possible and automate it with the purpose to
-withstand longer periods without our presence.
+- **Objective:** Create a Smart Greenhouse proof of concept for remote monitoring and management.
+- **Hardware:** Raspberry Pi Pico WH, DHT11 sensor, photoresistor, soil moisture sensor, breadboard, LED, resistors, and connection wires.
+- **Software:** Thonny IDE, MicroPython, AWS IoT Core, Amazon Timestream, Grafana.
+- **Setup:** Connect sensors and LED to breadboard, configure AWS services, and integrate with IoT device.
+- **Outcome:** Functional prototype for real-time greenhouse monitoring with data visualization on Grafana.
 
-<div align="center">
-<img src="./media/image2.png">
-<p><i>Grafana dashboard providing diagrams with climate data. Hot
-temperatures. Looks like the plant needs some water :)</i><p>
-  <br>
-</div>
-
-The proof of concept will give me insights on how to gather and
-visualize greenhouse climate data through IoT using a micro controller
-and hardware sensors to connect and send data to a cloud service where
-the data can be monitored. I will also explore how I can send commands
-to the micro controller to control outgoing ports for future automation
-of a watering system and so on.
-
-# Contents
+# Table of contents
 
 - [My smart greenhouse project](#my-smart-greenhouse-project)
   - [Introduction](#introduction)
@@ -90,6 +76,28 @@ of a watering system and so on.
   - [Presenting the data](#presenting-the-data)
     - [Creating visualizations (Widgets)](#creating-visualizations-widgets)
   - [Conclusions](#conclusions)
+
+## Objective
+
+I choose this project because of a need to monitor and manage a
+greenhouse I am planning at our vacation home up in the north of Sweden.
+Due to the long distance from Stockholm where we live, I have a goal to
+make it as "smart" as possible and automate it with the purpose to
+withstand longer periods without our presence.
+
+<div align="center">
+<img src="./media/image2.png">
+<p><i>Grafana dashboard providing diagrams with climate data. Hot
+temperatures. Looks like the plant needs some water :)</i><p>
+  <br>
+</div>
+
+The proof of concept will give me insights on how to gather and
+visualize greenhouse climate data through IoT using a micro controller
+and hardware sensors to connect and send data to a cloud service where
+the data can be monitored. I will also explore how I can send commands
+to the micro controller to control outgoing ports for future automation
+of a watering system and so on.
 
 ## Material
 
@@ -130,7 +138,7 @@ Elektrokit.com.
 | 1     | Photoresistor with built-in resistor (art no: 41015727) | <img src="./media/image6.png" width="160"> | Sensor for measuring light. | 31.20 SEK |
 | 1     | Soil Moisture sensor (art no: 41015738) | <img src="./media/image7.jpeg" width="160"> | Sensor for measuring soil moisture. | 23.20 SEK |
 | 1     | Breadboard (art no: 10160840)         | <img src="./media/image8.jpeg" width="160"> | Lab board to connect devices to the microcontroller. | 55.20 SEK |
-| 1     | Led 2V/25mA (art no: 40307020)         | <img src="./media/image9.jpeg" width="160"> | Red LED used to show status during start-up and test remote command execution. | 4 SEK |
+| 1     | LED 2V/25mA (art no: 40307020)         | <img src="./media/image9.jpeg" width="160"> | Red LED used to show status during start-up and test remote command execution. | 4 SEK |
 | 1     | USB cable (art no: 41003290)           | <img src="./media/image10.png" width="160"> | Connects Raspberry Pi Pico WH to computer or power adapter. | 31.20 SEK |
 | 1     | Resistor 330Ω (art no: 40810233)       | <img src="./media/image11.png" width="160"> | Resistor used to lower voltage for LED to less than 2V. | 0.8 SEK |
 | 1     | Resistor 1kΩ (art no: 40810310)        | <img src="./media/image12.png" width="160"> | Pull-up resistor for DHT11 sensor. | 0.8 SEK |
@@ -269,23 +277,23 @@ is no need for an external one when connecting it to the Pico.
 
 ### Connecting the led
 
-Before connecting the led we need to calculate the optimal additional
-resistance needed to meet the led specification that reads 2V and 25mA.
+Before connecting the LED we need to calculate the optimal additional
+resistance needed to meet the LED specification that reads 2V and 25mA.
 Since the plus circuit on the breadboard delivers 3.3V we need to lower
 the voltage with at least 1.3V. We calculate the resistance needed to
 achieve that using the formula R = U/I which gives us 1.3V/0.025A = 52Ω.
 The smallest resistor I have is 330Ω which will result in a dimmer led
 but not damage it. I test using the 330Ω resistance and think it doesn't
-dim the led to much.
+dim the LED to much.
 
-Connect pins on the led as following:
+Connect pins on the LED as following:
 
--   The longer led leg (anode) is connected to the 330Ω resistance on
+-   The longer LED leg (anode) is connected to the 330Ω resistance on
     breadboard
 
 -   The resistance is connected to pin 22 (GP17) on Pico
 
--   The shorter led leg (cathode) is connected to minus on the
+-   The shorter LED leg (cathode) is connected to minus on the
     breadboard
 
 <img src="./media/image20.png">
@@ -379,7 +387,7 @@ project. For even more details I have added a how-to [here](docs/aws-howto.md).
 In Timestream I have created a database and two tables to store the data
 from the IoT device. One table is used for sensor data and the other one
 for states from the device. To illustrate this my IoT device sends state
-if the led is turned on or off.
+if the LED is turned on or off.
 
 <img src="./media/image22.png">
 
@@ -490,7 +498,7 @@ Log and exception handling
 -   Catch exceptions and log stack trace. Try to recover the IoT device
     service by automatic reset. Useful if the Wi-Fi is temporary down.
 
--   Flash led to visualize where in the program the device is
+-   Flash LED to visualize where in the program the device is
 
 ### Files and folder structure
 
@@ -607,7 +615,7 @@ subscribed topic
 <img src="./media/image36.png">
 
 I my simple example it takes two commands "turn on led1" and "turn off
-led1" which turns on and off the physical led on the breadboard. It also
+led1" which turns on and off the physical LED on the breadboard. It also
 publishes the new state so it can be visualized on the Grafana
 dashboard.
 
@@ -714,14 +722,14 @@ optimal.
 are many types of diagrams to choose from and settings to customize
 them.*
 
-The visualization showing led state is a bit special. It uses a
+The visualization showing LED state is a bit special. It uses a
 visualization called stat that checks if the last value is On or Off and
 displays a red "Off" or green "On" depending on the value.
 
 <img src="./media/image41.png">
 
 *Using visualization Stat in Grafana to check and display state of the
-Led connected to the Pico.*
+LED connected to the Pico.*
 
 Currently IoT data is preserved for 12 months. While the IoT device is
 running new data is saved to the database every time a new message to
