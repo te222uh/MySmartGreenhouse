@@ -796,6 +796,10 @@ chapter.
 
 ## Finalizing the design
 
+<div align="center>
+  <b>VIDEO WITH WALK-THROUGH OF THE FINAL DESIGN IS COMING!</b>
+</div>
+  
 Building an IoT device for my smart greenhouse using AWS IoT services
 and Grafana has been both a fun and rewarding experience. I think the
 most fun part has been building the hardware and MicroPython programming
@@ -815,9 +819,9 @@ fixed by replacing it before the upcoming presentation.
   <br>
 </div>
 <br>
-\
 
-**VIDEO IS COMING!**
+
+
 
 
 It has also been fun to learn about parts of AWS I haven't explored
