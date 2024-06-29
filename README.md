@@ -795,18 +795,18 @@ For more information on the Timestream database see the platform
 chapter.
 
 ## Finalizing the design
-
-<br>
-<div align="center">
-  <p><b>VIDEO WITH WALK-THROUGH OF THE FINAL DESIGN IS COMING!</b></p>
-</div>
-<br>
   
 Building an IoT device for my smart greenhouse using AWS IoT services
 and Grafana has been both a fun and rewarding experience. I think the
 most fun part has been building the hardware and MicroPython programming
 but also to see that it was seamless to integrate it with a powerful
 cloud platform like AWS. 
+
+<br>
+<div align="center">
+  <p><b>VIDEO WITH WALK-THROUGH OF THE FINAL DESIGN IS COMING!</b></p>
+</div>
+<br>
 
 I think the project went well without any bigger obstacle. I still have some 
 minor issues with my photoresistor hardware that I will hopefully can get 
