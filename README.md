@@ -796,8 +796,8 @@ chapter.
 
 ## Finalizing the design
 
-<div align="center>
-  <b>VIDEO WITH WALK-THROUGH OF THE FINAL DESIGN IS COMING!</b>
+<div align="center">
+  <p><b>VIDEO WITH WALK-THROUGH OF THE FINAL DESIGN IS COMING!</b></p>
 </div>
   
 Building an IoT device for my smart greenhouse using AWS IoT services
