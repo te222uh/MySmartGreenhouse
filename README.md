@@ -794,13 +794,26 @@ dashboard to see trends 12 months back in time.
 For more information on the Timestream database see the platform
 chapter.
 
-## Conclusions
+## Finalizing the design
 
 Building an IoT device for my smart greenhouse using AWS IoT services
 and Grafana has been both a fun and rewarding experience. I think the
 most fun part has been building the hardware and MicroPython programming
 but also to see that it was seamless to integrate it with a powerful
 cloud platform like AWS.
+
+<div align="center">
+  <br>
+  <img src="./media/image1001.png">
+</div>
+<div align="center">
+  <p><i>Final design in proof of concept</i><p>
+  <br>
+</div>
+
+
+**VIDEO IS COMING!**
+
 
 It has also been fun to learn about parts of AWS I haven't explored
 before. IoT Core provides a secure way to connect IoT devices using
