@@ -75,7 +75,7 @@ some more time for that.
   - [Transmitting the data / connectivity](#transmitting-the-data--connectivity)
   - [Presenting the data](#presenting-the-data)
     - [Creating visualizations (Widgets)](#creating-visualizations-widgets)
-  - [Conclusions](#conclusions)
+  - [Finalizing the design](#finalizing-the-design)
 
 ## Objective
 
