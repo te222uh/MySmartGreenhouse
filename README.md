@@ -634,7 +634,7 @@ exact value, I added a check that makes sure that we never get a slip to
 a negative result.
 
 For future needs I will check for a better photoresistor to measure
-light, but it will do for thus proof of concept.
+light, but it will do for this proof of concept.
 
 <img src="./media/image34.png">
 
