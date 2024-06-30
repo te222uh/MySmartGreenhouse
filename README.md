@@ -808,8 +808,8 @@ cloud platform like AWS.
 </div>
 <br>
 
-I think the project went well without any bigger obstacle. I still have some 
-minor issues with my photoresistor hardware that I will hopefully can get 
+I think the project went well without any bigger obstacle. I have some 
+minor issues with my photoresistor hardware that I hopefully can get 
 fixed by replacing it before the upcoming presentation.   
 
 <div align="center">
