@@ -720,7 +720,7 @@ showing the current state of the LED.</i><p>
 
 ### Creating visualizations (Widgets)
 
-Visualizations are mainly using a SQL query creating a data set. The
+Visualizations are mainly created using a SQL query creating a data set. The
 current value is using a simple query fetching the latest value from the
 Timestream table.
 
