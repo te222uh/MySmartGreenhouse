@@ -159,7 +159,7 @@ ssid = config.ssid # Store sensitive configuration in separate config file
 password = config.password
 
 # MQTT 
-mqttHost = "your-iot-core-ats.iot.eu-central-1.amazonaws.com" # Needs to be change to your AWS IoT core enpoint
+mqttHost = "your-iot-core-ats.iot.eu-central-1.amazonaws.com" # Needs to be changed to your AWS IoT core enpoint
 mqttPort = 8883
 mqttTopicSensorData = "device/pico1/data"
 mqttTopicTask = "device/pico1/task"
