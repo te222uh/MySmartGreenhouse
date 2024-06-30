@@ -5,7 +5,7 @@
 Tomas Eriksson - te222uh
 
 I have named my project *My Smart Greenhouse*. The goal with the project
-is to create proof of concept for a Smart Greenhouse including a
+is to create a proof of concept for a Smart Greenhouse including a
 prototype of an IoT hardware device and a cloud-based service to monitor
 and manage a smart greenhouse remotely.
 
