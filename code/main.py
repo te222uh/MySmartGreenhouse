@@ -159,12 +159,12 @@ ssid = config.ssid # Store sensitive configuration in separate config file
 password = config.password
 
 # MQTT 
-mqttHost = "a2ua3ctopteqfq-ats.iot.eu-central-1.amazonaws.com"
+mqttHost = "your-iot-core-ats.iot.eu-central-1.amazonaws.com" # Needs to be change to your AWS IoT core enpoint
 mqttPort = 8883
 mqttTopicSensorData = "device/pico1/data"
 mqttTopicTask = "device/pico1/task"
 mqttTopicState = "device/pico1/state"
-clientId = ubinascii.hexlify("SmartGreenHouse")
+clientId = ubinascii.hexlify("SmartGreenHouse") # Change to your choice of clientId
 
 # Certificate files
 caCert = ReadPem("/custom/certs/AmazonRootCA1.pem")
