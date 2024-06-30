@@ -668,7 +668,7 @@ before returning to the loop.
 
 One nice feature I added is exception handling including writing the
 error message to the log and restarting the Pico after waiting 60
-seconds. This way the device can get online again with human interaction
+seconds. This way the device can get online again without human interaction
 after e.g. network failures.
 
 <img src="./media/image38.png">
