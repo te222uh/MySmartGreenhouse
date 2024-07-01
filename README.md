@@ -628,7 +628,7 @@ some calculations to achive the goal to present moisture with percentage
 where 0% is completely dry and 100% is totally wet, and light where 0% is 
 completely dark and 100% is full light.
 
-With ADC module from MicroPython values will range between 0 and 65535 (16-bit max value) 
+With the ADC module from MicroPython values will range between 0 and 65535 (16-bit max value) 
 and we will then transform it into a percentage (between 0% and 100%).
 
 <img src="./media/image34.png">
@@ -803,9 +803,7 @@ cloud platform like AWS.
 </div>
 <br>
 
-I think the project went well without any bigger obstacle. I have some 
-minor issues with my photoresistor hardware that I hopefully can get 
-fixed by replacing it before the upcoming presentation.   
+I think the project went well without any bigger obstacles.  
 
 <div align="center">
   <br>
@@ -816,9 +814,6 @@ fixed by replacing it before the upcoming presentation.
   <br>
 </div>
 <br>
-
-
-
 
 
 It has also been fun to learn about parts of AWS I haven't explored
