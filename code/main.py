@@ -73,9 +73,6 @@ def PublishData():
     # Measure humidiy
     humidity = dhtSensor.humidity()
     
-    # Measure moisture level and calculate percentage
-    # 65535 is the max value delivered by the sensor
-    
     #
     # Moisture sensor
     #
@@ -88,12 +85,11 @@ def PublishData():
     #
     # Photoresistor sensor
     #
-    # Convert measurement from photoresistor in to precent
-    lightLevel = 100 - ((photoResistorSensor.read_u16() / 1500) * 100)
+    # Convert measurement from photoresistor in to precentage
+    analogLight = photoResistorSensor.read_u16()
     
-    # Avoid negative values from photresistor 
-    if lightLevel < 0:
-        lightLevel = 0
+    # Make conversion av analog value to percentage
+    lightLevel = (analogLight / 65535) * 100
     
     # Prepare json for MQTT message
     data = {
@@ -159,12 +155,12 @@ ssid = config.ssid # Store sensitive configuration in separate config file
 password = config.password
 
 # MQTT 
-mqttHost = "your-iot-core-ats.iot.eu-central-1.amazonaws.com" # Needs to be changed to your AWS IoT core enpoint
+mqttHost = "a2ua3ctopteqfq-ats.iot.eu-central-1.amazonaws.com"
 mqttPort = 8883
 mqttTopicSensorData = "device/pico1/data"
 mqttTopicTask = "device/pico1/task"
 mqttTopicState = "device/pico1/state"
-clientId = ubinascii.hexlify("SmartGreenHouse") # Change to your choice of clientId
+clientId = ubinascii.hexlify("SmartGreenHouse")
 
 # Certificate files
 caCert = ReadPem("/custom/certs/AmazonRootCA1.pem")
@@ -259,6 +255,9 @@ except Exception as e:
 except KeyboardInterrupt:
     print("Disconnecting from MQTT broker...")
     client.disconnect()
+
+
+
 
 
 
