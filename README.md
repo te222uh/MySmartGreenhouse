@@ -141,7 +141,7 @@ Elektrokit.com.
 | 1     | LED 2V/25mA (art no: 40307020)         | <img src="./media/image9.jpeg" width="160"> | Red LED used to show status during start-up and test remote command execution. | 4 SEK |
 | 1     | USB cable (art no: 41003290)           | <img src="./media/image10.png" width="160"> | Connects Raspberry Pi Pico WH to computer or power adapter. | 31.20 SEK |
 | 1     | Resistor 330Ω (art no: 40810233)       | <img src="./media/image11.png" width="160"> | Resistor used to lower voltage for LED to less than 2V. | 0.8 SEK |
-| 1     | Resistor 1kΩ (art no: 40810310)        | <img src="./media/image12.png" width="160"> | Pull-up resistor for DHT11 sensor. | 0.8 SEK |
+| 1     | Resistor 10kΩ (art no: 40810410)        | <img src="./media/image12.png" width="160"> | Pull-up resistor for DHT11 sensor. | 0.8 SEK |
 | 1     | Connection wires for breadboard male-male (art no: 41012684) | <img src="./media/image13.jpeg" width="160"> | Wires to connect devices on breadboard. | 39.20 SEK |
 
 
@@ -149,9 +149,9 @@ Elektrokit.com.
 
 I use my personal Macbook Pro with MacOS/X but the same can be achieved
 using a PC and Windows. For the proof of concept, I decided to use
-Thonny as IDE. Normally I work with VS Code but after reading about
+Thonny as IDE. Normally I work with VSCode but after reading about
 Thonny I got curious and wanted to test it out. It has worked very well
-for the project so far but I will probably switch to VS Code if the
+for the project so far but I will probably switch to VSCode if the
 project grows from a proof of concept into a full implementation.
 
 ### Installing Thonny
