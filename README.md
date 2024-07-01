@@ -621,20 +621,15 @@ Publish data measures data from sensors and publish it to AWS IoT Core
 topic device/pico1/data.
 
 The DHT sensor delivers digital values that don't need any further
-calculations. The soil moisture sensor and photoresistor however needed
+calculations. 
+
+The soil moisture sensor and photoresistor however needs
 some calculations to achive the goal to present moisture with percentage
-where 0% is completely dry and 100% is totally wet. I found that the max
-value from the sensor was 65535 and could therefor use it in a formula
-to calculate the moisture level in percentage.
+where 0% is completely dry and 100% is totally wet, and light where 0% is 
+completely dark and 100% is full light.
 
-I didn't experience the same luck with the photoresistor but found an
-estimated max value by testing the sensor on my own. I found that its
-maximum was somewhere around 1500 when in full light. Since it is not an
-exact value, I added a check that makes sure that we never get a slip to
-a negative result.
-
-For future needs I will check for a better photoresistor to measure
-light, but it will do for this proof of concept.
+With ADC module from MicroPython values will range between 0 and 65535 (16-bit max value) 
+and we will then transform it into a percentage (between 0% and 100%).
 
 <img src="./media/image34.png">
 
