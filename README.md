@@ -215,7 +215,7 @@ avoid damaging it.
 
 ### Connecting the DHT11 sensor
 
-The DHT11 sensor has four pins, from left 1-4 (pin 3 is not in use).
+The DHT11 sensor has four pins, from left 1-4 (pin 3 is not in use). It measures temperature and humidity.
 
 Connect pins as following:
 
@@ -237,7 +237,7 @@ it low.
 ### Connecting the moisture sensor
 
 Connect probe to moisture sensor using two wires and put probe into the
-soil.
+soil. I measures the soil moisture level.
 
 The moisture sensor has 4 pins, from left 1-4.
 
@@ -260,7 +260,7 @@ off again when we are done.
 
 ### Connecting the photoresistor
 
-The photoresistor sensor has two legs, from left 1-2.
+The photoresistor sensor has two legs, from left 1-2. It measures light level.
 
 Connect pins on the photoresistor as following:
 
