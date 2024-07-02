@@ -16,7 +16,6 @@ IoT device. As an example, this would be useful to control a watering
 system remotely or controlling the light. The hardware IoT device is
 built using a breadboard.
 
-
 <div align="center">
   <br>
 <img src="./media/image1.png">
@@ -28,6 +27,14 @@ I estimate that by following my instructions and using my code you
 should be able to finish your own setup in 4-8 hours. If you are not
 used to working with Amazon Web Services (AWS) you might need to add
 some more time for that.
+
+# Project demo on Youtube
+<div align="center">
+  <a href="https://www.youtube.com/watch?v=RaTZGTV37SM" target=_new>
+    <img src="https://img.youtube.com/vi/RaTZGTV37SM/0.jpg" alt="My smart greenhouse demo" width="640">
+  </a>
+</div>
+
 
 # TL;DR
 
