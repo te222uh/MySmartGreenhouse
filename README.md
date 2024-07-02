@@ -787,10 +787,10 @@ LED connected to the Pico.</i><p>
   <br>
 </div>
 
-Currently IoT data is preserved for 12 months. While the IoT device is
+Currently IoT data is preserved for 2 weeks. While the IoT device is
 running new data is saved to the database every time a new message to
 IoT Core, currently every 10 seconds. This means that we can use the
-dashboard to see trends 12 months back in time.
+dashboard to see trends 2 weeks back in time.
 
 For more information on the Timestream database see the platform
 chapter.
