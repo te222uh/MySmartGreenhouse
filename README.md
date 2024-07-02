@@ -30,7 +30,7 @@ some more time for that.
 
 # Project demo on Youtube
 <div align="center">
-  <a href="https://www.youtube.com/watch?v=RaTZGTV37SM" target=_new>
+  <a href="https://www.youtube.com/watch?v=RaTZGTV37SM" target=_blank>
     <img src="https://img.youtube.com/vi/RaTZGTV37SM/0.jpg" alt="My smart greenhouse demo" width="640">
   </a>
 </div>
