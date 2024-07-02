@@ -30,6 +30,7 @@ some more time for that.
 
 # Project demo on Youtube
 <div align="center">
+  <br>
   <a href="https://www.youtube.com/watch?v=RaTZGTV37SM" target=_blank>
     <img src="https://img.youtube.com/vi/RaTZGTV37SM/0.jpg" alt="My smart greenhouse demo" width="640">
   </a>
@@ -800,15 +801,8 @@ Building an IoT device for my smart greenhouse using AWS IoT services
 and Grafana has been both a fun and rewarding experience. I think the
 most fun part has been building the hardware and MicroPython programming
 but also to see that it was seamless to integrate it with a powerful
-cloud platform like AWS. 
-
-<br>
-<div align="center">
-  <p><b>VIDEO OF WALK-THROUGH OF THE FINAL DESIGN IS COMING!</b></p>
-</div>
-<br>
-
-I think the project went well without any bigger obstacles.  
+cloud platform like AWS. I think the project went well without any 
+bigger obstacles.  
 
 <div align="center">
   <br>
@@ -820,7 +814,6 @@ I think the project went well without any bigger obstacles.
 </div>
 <br>
 
-
 It has also been fun to learn about parts of AWS I haven't explored
 before. IoT Core provides a secure way to connect IoT devices using
 client certificates and two-way TLS encryption. Timestream facilitated
@@ -829,3 +822,13 @@ powerful visualization tools for monitoring greenhouse conditions.
 
 I hope to continue the work turning the proof of concept into a real
 implementation in my planned Greenhouse.
+
+### Project demo on Youtube
+<div align="center">
+  <br>
+  <a href="https://www.youtube.com/watch?v=RaTZGTV37SM" target=_blank>
+    <img src="https://img.youtube.com/vi/RaTZGTV37SM/0.jpg" alt="My smart greenhouse demo" width="640">
+  </a>
+</div>
+
+
