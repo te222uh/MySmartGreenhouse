@@ -135,13 +135,13 @@ Elektrokit.com.
 |-------|------------------|--------------------------------------------|-------------------------------------|------------|
 | 1     | Raspberry Pi Pico WH (art no: 41019114) | <img src="./media/image4.jpeg" width="160"> | Microcontroller with support for MicroPython. | 87.20 SEK |
 | 1     | DHT11 sensor (art no: 41016231)       | <img src="./media/image5.jpeg" width="160"> | Sensor for measuring air temperature and humidity. | 31.20 SEK |
-| 1     | Photoresistor with built-in resistor (art no: 41015727) | <img src="./media/image6.png" width="160"> | Sensor for measuring light. | 31.20 SEK |
+| 1     | Photoresistor (LDR) CdS 4-7 kohm (art no: 40850001) | <img src="./media/image6.png" width="160"> | Sensor for measuring light. | 6.40 SEK |
 | 1     | Soil Moisture sensor (art no: 41015738) | <img src="./media/image7.jpeg" width="160"> | Sensor for measuring soil moisture. | 23.20 SEK |
 | 1     | Breadboard (art no: 10160840)         | <img src="./media/image8.jpeg" width="160"> | Lab board to connect devices to the microcontroller. | 55.20 SEK |
 | 1     | LED 2V/25mA (art no: 40307020)         | <img src="./media/image9.jpeg" width="160"> | Red LED used to show status during start-up and test remote command execution. | 4 SEK |
 | 1     | USB cable (art no: 41003290)           | <img src="./media/image10.png" width="160"> | Connects Raspberry Pi Pico WH to computer or power adapter. | 31.20 SEK |
 | 1     | Resistor 330Ω (art no: 40810233)       | <img src="./media/image11.png" width="160"> | Resistor used to lower voltage for LED to less than 2V. | 0.8 SEK |
-| 1     | Resistor 10kΩ (art no: 40810410)        | <img src="./media/image12.png" width="160"> | Pull-up resistor for DHT11 sensor. | 0.8 SEK |
+| 2     | Resistor 10kΩ (art no: 40810410)        | <img src="./media/image12.png" width="160"> | Pull-up resistor for DHT11 sensor and pull-down resistor for the photoresistor sensor. | 0.8 SEK |
 | 1     | Connection wires for breadboard male-male (art no: 41012684) | <img src="./media/image13.jpeg" width="160"> | Wires to connect devices on breadboard. | 39.20 SEK |
 
 
