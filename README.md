@@ -35,6 +35,9 @@ some more time for that.
     <img src="https://img.youtube.com/vi/RaTZGTV37SM/0.jpg" alt="My smart greenhouse demo" width="640">
   </a>
 </div>
+<div align="center">
+  <i>Project demo on Youtube. Right click to open in new tab.</i>
+</div>
 
 
 # TL;DR
@@ -829,6 +832,9 @@ implementation in my planned Greenhouse.
   <a href="https://www.youtube.com/watch?v=RaTZGTV37SM" target=_blank>
     <img src="https://img.youtube.com/vi/RaTZGTV37SM/0.jpg" alt="My smart greenhouse demo" width="640">
   </a>
+</div>
+<div align="center">
+  <i>Project demo on Youtube. Right click to open in new tab.</i>
 </div>
 
 
