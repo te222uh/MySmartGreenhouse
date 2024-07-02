@@ -225,7 +225,7 @@ Connect pins as following:
 
 -   Pin 2 is connected to pin 2 (GP1) on the Pico
 
--   Per instruction from the DHT11 vendor also connect a 10kΩ pull-up
+-   By recommendation from the DHT11 vendor also connect a 10kΩ pull-up
     resistor\* to pin 2 from plus on breadboard.
 
 <img src="./media/image17.png">
@@ -260,20 +260,18 @@ off again when we are done.
 
 ### Connecting the photoresistor
 
-The photoresistor sensor has three pins, from left 1-3.
+The photoresistor sensor has two legs, from left 1-2.
 
 Connect pins on the photoresistor as following:
 
--   Connect pin 1 to pin 32 (GP27) on Pico
-
--   Connect pin 2 to plus on breadboard
-
--   Connect pin 3 to minus on breadboard
-
-Note that the photoresistor has a built-in 10kΩ inline resistor so there
-is no need for an external one when connecting it to the Pico.
+-   Connect leg 1 to pin 32 (GP27) on Pico
+-   Connect leg 2 to minus on breadboard
+-   By recommendation of the photoresistor vendor also connect a 10kΩ pull-down
+    resistor\* to pin 32 from ground on breadboard.
 
 <img src="./media/image19.png">
+
+\*The pull-down resistor enhance the reliability and accuracy of sensor readings.
 
 ### Connecting the led
 
