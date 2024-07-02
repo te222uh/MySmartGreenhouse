@@ -71,7 +71,7 @@ some more time for that.
       - [PublishData()](#publishdata)
       - [OnActionMessage()](#onactionmessage)
       - [Main loop](#main-loop)
-  - [Downloading the code](#downloading-the-code)
+      - [Downloading the code](#downloading-the-code)
   - [Transmitting the data / connectivity](#transmitting-the-data--connectivity)
   - [Presenting the data](#presenting-the-data)
     - [Creating visualizations (Widgets)](#creating-visualizations-widgets)
@@ -668,7 +668,7 @@ after e.g. network failures.
 
 <img src="./media/image38.png">
 
-### Downloading the code
+#### Downloading the code
 
 You can download the latest code [here](./code/)
 
