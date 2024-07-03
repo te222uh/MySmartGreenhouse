@@ -574,7 +574,7 @@ starting up.
 
 #### Folder /umqtt/
 
-Most of the code is based on standard modules in MicroPython with one
+The code is based on standard modules in MicroPython with one
 exception. The MQTT client has been downloaded and stored under the
 folder /umqtt/ as simple.py.
 
