@@ -24,7 +24,7 @@ built using a breadboard.
 </div>
 
 I estimate that by following my instructions and using my code you
-should be able to finish your own setup in 4-8 hours. If you are not
+should be able to finish your own setup in 4-6 hours. If you are not
 used to working with Amazon Web Services (AWS) you might need to add
 some more time for that.
 
